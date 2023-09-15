@@ -1,0 +1,109 @@
+:root{
+  --green:rgb(5, 217, 5);
+  --dgreen:rgb(12, 148, 12);
+  --grey:rgb(237, 236, 236);
+  --orange:rgb(255, 123, 0);
+}
+*{
+  box-sizing: border-box;
+}
+h1{
+  color: var(--green);
+}
+body{
+  background-color: var(--grey);
+  margin: 0;
+}
+.button, button{
+  border: none;
+  background-color: rgb(177, 177, 177);
+  color: rgb(0, 0, 0);
+  border-radius: 15px;
+  padding: 5px 15px;
+  margin-right: 10px;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+}
+  .button:hover, button:hover, .label:hover + span{
+  background-color: var(--green);
+  transition-duration: 0.5s;
+  color: white;
+}
+
+.box,.box-top{
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0px;
+  box-shadow: 5px 5px 5px rgb(166, 166, 166);
+
+}
+.box-top{
+  height: 110px;
+}
+/* Test Log */
+span.value{
+  color: var(--dgreen);
+  font-weight: normal;
+}
+span.header{
+  color: var(--orange);
+  font-weight: bold;
+}
+/* Incident.html */
+.block {
+  background-color: rgb(255, 255, 255);
+  padding: 10px 20px 20px 30px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px rgb(166, 166, 166);
+}
+.sub-topic{
+  font-size: 1.2rem;
+}
+.sub-topic-2{
+  font-size: 0.9rem;
+}
+.topic{
+  color: var(--orange);
+  font-weight: bold;
+}
+label input[type="checkbox"] {
+  display: none;
+}
+label span {
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 5px 0px;
+  border: 1px solid var(--green);
+  border-radius: 13px;
+  color: var(--green);
+}
+.label:checked + span{
+  background-color: var(--green);
+  color: rgb(255, 255, 255);
+  font-style: bold;
+  font-size: 1.1em;
+}
+.pagination > li > a
+{
+  background-color: white;
+  color: var(--green);
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+  color: #5a5a5a;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > .active > a
+{
+  color: white;
+  background-color: var(--green) !Important;
+  border: 1px solid var(--green);
+}

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Test Log</title>
+    <style>
+        th{
+            font-size: 1.2rem;
+        }
+        tr{
+            font-size: 1rem;
+        }
+        .log-table{
+            overflow-x: scroll;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-xl">
+
+            <h1>Test Log</h1>
+            <a class="button" style="margin-bottom: 10px;" href="/new-log">New Log</a>
+            
+            {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{message}}
+                </div>
+            {% endfor %}
+            {% endif %}
+
+            <div class="log-table">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col"><span class="header">Id</span></th>
+                        <th scope="col"><span class="header">Stamp</span></th>
+                        <th scope="col"><span class="header">Date</span></th>
+                        <th scope="col"><span class="header">Time</span></th>
+                        <th scope="col"><span class="header">Driver</span></th>
+                        <th scope="col"><span class="header">Vehicle</span></th>
+                        <th scope="col"><span class="header">Location</span></th>
+                        <th scope="col"><span class="header">Labels</span></th>
+                        <th scope="col"><span class="header">Remark</span></th>
+                        <th scope="col"><span class="header">Action</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in log_p %}
+                        <tr>
+                            <td><span class="value">{{ log.id }}</span></td>
+                            <td><span class="value">{{ log.stamp }}</span></td>
+                            <td><span class="value">{{ log.date }}</span></td>
+                            <td><span class="value">{{ log.time }}</span></td>
+                            <td><span class="value">{{ log.driver }}</span></td>
+                            <td><span class="value">{{ log.vehicle }}</span></td>
+                            <td><span class="value">{{ log.location }}</span></td>
+                            <td><span class="value">{{ log.label }}</span></td>
+                            <td><span class="value">{{ log.note }}</span></td>
+                            <td>
+                                <a href="edit-log/{{log.id}}" class="button">edit</a>
+                                <a href="delete-log/{{log.id}}" class="button"
+                                onclick="return confirm('Confirm Deletion')"
+                                >delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        <br>
+            <!-- pagination -->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                {% if log_p.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1" aria-label="First">
+                    <span aria-hidden="false">&laquo;First</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disable">
+                    <a class="page-link">&laquo;First</a>
+                </li>
+                {% endif %}
+
+                {% for i in log_p.paginator.page_range  %}
+                    {% if i == log_p.number %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if log_p.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ log_p.paginator.num_pages }}" aria-label="Last">
+                    <span aria-hidden="false">Last&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disable">
+                    <a class="page-link">Last&raquo;</a>
+                </li>
+                {% endif %}
+                </ul>
+            </nav>
+    </div>
+{% endblock %}

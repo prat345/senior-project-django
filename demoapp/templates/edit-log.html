@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Edit Log</title>
+    <style>
+        .row{
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- <h1>Edit Log</h1> -->
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-10 col-lg-6">
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        <h1 style="text-align: center;">Edit Log</h1>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="driver">Driver</label>
+                                <input type="text" class="form-control" id="driver" name="driver" value="{{ log.driver }}">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="date">Old Date</label>
+                                <input type="text" class="form-control" id="form-date" name="date" value="{{ log.date }}" disabled>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="date">New Date</label>
+                                <input type="date" class="form-control" id="form-date" name="date" value="{{ log.date }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="time">Old Time</label>
+                                <input type="text" class="form-control" id="form-time" name="time" value="{{ log.time }}" disabled>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="time">New Time</label>
+                                <input type="time" class="form-control" id="form-time" name="time" value="{{ log.time }}">
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" id="location" name="location" value="{{ log.location }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="vehicle">Vehicle</label>
+                                <input type="text" class="form-control" id="vehicle" name="vehicle" value="{{ log.vehicle }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="label">Old Label</label>
+                                <input type="text" class="form-control" id="label" name="label" value="{{ log.label }}" disabled>
+                            </div>
+                            <div class="form-group col-md-9">
+                                <p>New Label</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="label" value="Battery">
+                                    <label class="form-check-label">Battery</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="label" value="Sensing">
+                                    <label class="form-check-label">Sensing</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="label" value="Localization">
+                                    <label class="form-check-label">Localization</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="label" value="Planning">
+                                    <label class="form-check-label">Planning</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="label" value="Computing Node">
+                                    <label class="form-check-label">Computing Node</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="label" value="Incident">
+                                    <label class="form-check-label">Incident</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="note">Remarks</label>
+                            <!-- <input type="text" class="form-control" id="note" name="note" value="{{ log.note }}"> -->
+                            <textarea class="form-control" name="note" id="note" cols="30" rows="3">{{ log.note }}</textarea>
+                        </div>
+                        <br>
+                        <div class="row justify-content-center">
+                            <button type="submit" class="button" style="width: 70%; text-align: center;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>      
+        </div>
+    </div>
+{% endblock %}

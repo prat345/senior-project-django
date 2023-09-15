@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Incident Query</title>
+    <style>
+        th, td{
+        border: 5px solid rgb(237, 236, 236);
+        border-collapse: collapse;
+        text-align: center;
+        font-weight: normal;
+        }
+        th{
+        font-size: 1.5rem;
+        }
+        .block{
+            box-shadow: 3px 3px 5px silver;
+        }
+        .label-table{
+            overflow-x: scroll;
+        }
+        @media (max-width:800px){
+            .container-fluid{
+                padding:0 3px !important;
+            }
+        }
+        @media (max-width:450px){
+            .block{
+                padding-left:0;
+                padding-right: 0px;
+            }
+            .block-text{
+                margin: 0px 30px
+            }
+        }
+    </style>
+    <!-- <script>
+        function change_url(){
+            document.location.href="?q1={{ operation }}&q2={{ selected|join:'_' }}";
+            // document.location.href="/about";
+        }
+    </script> -->
+{% endblock %}
+
+{% block content %}
+        <div class="container-xl" >
+            <h1>Incident Query</h1>
+            <!-- messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="label-table">
+                    <table class="table table-light" border="1" cellpadding="10">
+                        <thead>
+                            <th colspan="3">
+                                {% if 'External' in selected %}
+                                    <label><input class="label" type="checkbox" name="label" value="External" checked><span style="padding-left: 50px; padding-right: 50px;">External</span></label>
+                                {% else %}
+                                    <label><input class="label" type="checkbox" name="label" value="External"><span style="padding-left: 50px; padding-right: 50px;">External</span></label>
+                                {% endif %}
+                            </th>
+                            <th colspan="2">
+                                {% if 'Internal' in selected %}
+                                    <label><input class="label" type="checkbox" name="label" value="Internal" checked><span style="padding-left: 50px; padding-right: 50px;">Internal</span></label>
+                                {% else %}
+                                    <label><input class="label" type="checkbox" name="label" value="Internal"><span style="padding-left: 50px; padding-right: 50px;">Internal</span></label>
+                                {% endif %}
+                            </th>
+                        </thead>
+                        <tbody  align="left" valign="top">
+                            <!-- tr=row td=col -->
+                            <tr> 
+                                {% for topic,arr in labels.items %}
+                                    <td class="sub-topic">
+                                        {% if topic in selected %}
+                                            <label><input class="label" type="checkbox" name="label" value="{{topic}}" checked><span>{{topic}}</span></label>
+                                        {% else %}
+                                            <label><input class="label" type="checkbox" name="label" value="{{topic}}"><span>{{topic}}</span></label>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                            <tr>
+                                {% for topic,arr in labels.items %}
+                                    <td class="sub-topic-2">
+                                    {% for label in arr %}
+                                        {% if label in selected %}
+                                            <label><input class="label" type="checkbox" name="label" value="{{label}}" checked><span>{{label}}</span></label>
+                                        {% else %}
+                                            <label><input class="label" type="checkbox" name="label" value="{{label}}"><span>{{label}}</span></label>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </td>
+                                {% endfor %}
+                            </tr> 
+                            <tr>
+                                <td colspan="5">
+                                    <label><input class="label" type="checkbox" name="label" value=""><span style="padding-left: 100px; padding-right: 100px;">No Label</span></label>
+                                </td>
+                            </tr>  
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="margin: 5px 0;">
+                    <label for="operation">Operation&nbsp;&nbsp;</label>
+                    <!-- default OR -->
+                    {% if operation == 'OR' %}
+                        <input type="radio" name="operation" value="AND" >AND</input>
+                        <input type="radio" name="operation" value="OR" checked>OR</input>
+                    {% else %} 
+                        <input type="radio" name="operation" value="AND" checked>AND</input>
+                        <input type="radio" name="operation" value="OR">OR</input>
+                    {% endif %}
+                </div>
+                <div style="margin-top: 5px; margin-bottom: 20px;">
+                    <button type="submit">Submit</button> 
+                    <!-- <button type="button" onclick ="change_url()">Submit</button>  -->
+                    <a href="/incident" class="button">Reset</a>
+                </div>
+            </form>
+        
+            
+            <!-- Display Query -->
+            <div>Selected({{ operation }}): {{ selected|join:', ' }}</div>
+            <p>{{ query|length }} results</p>
+            <!-- <p>{{ query }}</p> -->
+            {% for incident in query_p %}
+                <!-- <p>{{ incident.url }}</p> -->
+                <!-- {% for k,v in incident.items %}
+                <p>{{ k }}{{ v }}</p>
+                {% endfor %} --> 
+                <div class="block" id="block-{{ forloop.counter }}">
+                    <div class="block-text">
+                        <div>
+                            <span class="topic">Stamp:</span> <span class="value">{{ incident.stamp }}</span>&nbsp;&nbsp;
+                            <span class="topic">Testdrive:</span> <span class="value">{{ incident.testdrive }}</span> &nbsp;&nbsp;
+                        </div>
+                        <div>
+                            <span class="topic">Vehicle:</span> <span class="value">{{ incident.vehicle }}</span> &nbsp;&nbsp;
+                            <span class="topic">Location:</span> <span class="value">{{ incident.location }}</span> &nbsp;&nbsp;
+                            <span class="topic">Date:</span> <span class="value">{{ incident.date }}</span> &nbsp;&nbsp;
+                            <span class="topic">Time:</span> <span class="value">{{ incident.time }}</span> &nbsp;&nbsp;
+                        </div>
+                        <div style="margin-bottom: 5px;">
+                            <span class="topic">Labels:</span> <span class="value">{{ incident.tags }}</span> &nbsp;&nbsp;
+                        </div>
+                        <p>
+                            <button class="btn-success" onclick="showvid('{{ incident.url }}', '{{forloop.counter}}', this);">view</button>
+                            <!-- <button type="submit" name="video" value="{{ incident.url }}">view</button> -->
+                            <a href="/edit/{{incident.stamp}}" class="button" id="edit-button">edit</a>
+                            <a href="/delete/{{incident.stamp}}" class="button" id="delete-button"
+                                    onclick="return confirm('Confirm deletion')"
+                                    >delete</a>
+                        </p>
+                    </div>
+
+                    <!-- <div id="video"></div> -->
+                </div>
+            {% endfor %}
+
+            <br>
+            <!-- pagination -->
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                {% if query_p.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page=1" aria-label="First">
+                    <span aria-hidden="false">&laquo;First</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disable">
+                    <a class="page-link">&laquo;First</a>
+                </li>
+                {% endif %}
+
+                {% for i in query_p.paginator.page_range  %}
+                    {% if i == query_p.number %}
+                        <li class="page-item active"><a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if query_p.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ query_p.paginator.num_pages }}" aria-label="Last">
+                    <span aria-hidden="false">Last&raquo;</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disable">
+                    <a class="page-link">Last&raquo;</a>
+                </li>
+                {% endif %}
+                </ul>
+            </nav>
+
+            <script src="static/js/main.js"></script>
+        </div>
+{% endblock %}

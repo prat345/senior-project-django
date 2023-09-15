@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Testdrive</title>
+    <style>
+        /* *{
+            border: solid 1px black;
+        } */
+        body{
+            background-color: rgb(228, 228, 228);
+        }
+        .container-fluid:nth-child(1){
+            overflow-x: hidden;
+        }
+        /* .box{
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 0px;
+            box-shadow: 5px 5px 5px rgb(166, 166, 166);
+        } */
+        [class|=col]{
+            /* margin:5px !important; */
+            padding: 7px !important;
+        }
+        select{
+            outline: 0;
+            background: #fcfcfc;
+            color: #000000;
+            /* border: 1px solid black; */
+            padding: 5px 3px;
+            border-radius: 5px;
+        }
+        .top .box > h5, h5{
+            font-size: calc(0.5vw + 1em);
+        }
+        .top .box > p{
+            font-size: calc(1.25vw + 1em);
+            text-align: center;
+            color: rgb(13, 246, 16);
+        }
+        .box:last-child{
+            overflow-x:scroll;
+        }
+        form {
+            display: inline;
+            margin-right: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <h1 style="margin-left: 10px;">{{ selected_test }}</h1>
+        <div class="container-fluid" style="margin-top: 20px; margin-bottom: 5px;">
+            <!-- DROPDOWN -->
+            <form name=selectTestdrive action="" method=POST id="dropdown">
+                {% csrf_token %}
+                <!-- add testdrive to url when selected dropdown-->
+                <select class="custom-select" id="select-test" name=testdrive onchange="document.location.href='/testdrive/'+ this.value"> 
+                {% for testdrive in collections %}
+                    {% if testdrive == selected_test %}
+                        <option value="{{testdrive}}" selected>{{testdrive}}</option>
+                    {% else %}
+                        <option value="{{testdrive}}">{{testdrive}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+            </form>
+
+            <!-- DOWNLOAD CSV -->
+            <form action="" method="post" id="download-csv">
+                {% csrf_token %}
+                <button type="submit" name="download-csv">Download CSV</button>
+            </form>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row top">
+                {% for k,v in stats.items %}
+                <div class="col-6 col-md-4 col-lg-2">
+                    <div class="box col-md-12">
+                        <h5>{{k}}</h5>
+                        <p>{{v}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="box col-md-12">
+                        <h5>Acceleration(Longitudinal)</h5>
+                        {{ charts.chart2|safe }}
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="box col-md-12">
+                        <h5>Brake Input</h5>
+                        {{ charts.chart3|safe }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="box col-md-12">
+                        <h5>Velocity(Longitudinal)</h5>
+                        {{ charts.chart1|safe }}
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="box col-md-12">
+                        <h5>Drive Mode</h5>
+                        {{ charts.chart4|safe }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-9">
+                    <div class="box col-md-12">
+                        <h5>Incident Location</h5>
+                        {{ waypoint|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
