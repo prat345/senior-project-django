@@ -23,12 +23,12 @@ body{
   color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px 15px;
-  margin:5px;
+  margin: 5px;
   text-align: center;
   display: inline-block;
   text-decoration: none;
 }
-  .button:hover, button:hover{
+.button:hover, button:hover{
   background-color: var(--dgreen);
   transition-duration: 0.5s;
   color: white;
@@ -38,7 +38,6 @@ body{
   transition-duration: 0.5s;
   color: white;
 }
-
 .box,.box-top{
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -58,9 +57,9 @@ span.header{
 /* Incident.html */
 .block {
   background-color: rgb(255, 255, 255);
-  padding: 20px 30px;
-  margin-bottom: 15px;
-  border-radius: 5px;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
   box-shadow: 3px 3px 5px silver;
 }
 .sub-topic{
@@ -80,9 +79,10 @@ label span {
   display: inline-block;
   padding: 5px 15px;
   margin: 5px 0px;
-  border: 1px solid var(--green);
   border-radius: 13px;
-  color: var(--green);
+  border: 1px solid #e2e2e2;
+  color: #808080;
+  background-color: #dddddd;
 }
 .label:checked + span{
   background-color: var(--green);

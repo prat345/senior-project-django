@@ -8,6 +8,7 @@ import pandas as pd
 import pickle
 from django.core.paginator import Paginator
 from demoapp.models import TestLog
+import time
 
 # Create your views here.
 def index(request):
@@ -26,43 +27,12 @@ def summary(request):
         context[f'chart{i}'] = vars()['chart'+str(i)].to_html()
     context['incident_num_chart']=incident_num_chart().to_html()
     return render(request, 'summary.html',context)
-    
-def testdrive(request):
+
+def testdrive(request, selected='T2-B_SL_NBTC_20230125202407'):
+    st = time.time()
     collections = get_collection_names()
     incident_d = get_incident()
     station_wp = get_stations()
-    testdrive = collections[0]
-    if request.method == "POST":
-        if 'testdrive' in request.POST:
-            testdrive = request.POST["testdrive"] # get data
-        elif 'download-csv' in request.POST:
-            df = get_data(testdrive)
-            response = HttpResponse(content_type='text/csv')
-            response['Content-Disposition'] = f'attachment; filename={testdrive}.csv'
-            df.to_csv(path_or_buf=response,sep=',')
-            return response
-        print('>>>>',testdrive) 
-    incident_d = incident_d[testdrive]
-    df = get_data(testdrive)
-    topics = ['twist.linear.x','linear_acceleration.x_filtered', 'msg.brake', 'msg.mode']
-    yaxis = ['Velocity(m/s)', 'Long Acc(m/s\u00b2)', 'Brake Input(%)', 'Mode']
-    context = {'charts':{}, 'collections':collections , 'selected_test':testdrive}
-    for index, topic in enumerate(topics):
-        fig = make_plot(df,topic, yaxis[index], incident_d)
-        chart = fig.to_html()
-        context['charts'][f'chart{index+1}'] = chart
-
-    fig = waypoint_chart(df, incident_d, testdrive, station_wp)
-    context['waypoint'] = fig.to_html()
-    dic = get_testdrive_info(testdrive)
-    context['stats'] = dic
-    return render(request, 'testdrive.html', context)
-
-def testdrive2(request,selected):
-    collections = get_collection_names()
-    incident_d = get_incident()
-    station_wp = get_stations()
-    # testdrive = collections[0]
     testdrive = selected
     if request.method == "POST":
         if 'testdrive' in request.POST:
@@ -76,6 +46,7 @@ def testdrive2(request,selected):
         # print(testdrive) 
     incident_d = incident_d[testdrive]
     df = get_data(testdrive)
+    et = time.time()
     topics = ['twist.linear.x','linear_acceleration.x_filtered', 'msg.brake', 'msg.mode']
     yaxis = ['Velocity(m/s)', 'Long Acc(m/s\u00b2)', 'Brake Input(%)', 'Mode']
     context = {'charts':{}, 'collections':collections , 'selected_test':testdrive}
@@ -88,6 +59,9 @@ def testdrive2(request,selected):
     context['waypoint'] = fig.to_html()
     dic = get_testdrive_info(testdrive)
     context['stats'] = dic
+    loadTime = round(et-st, 2)
+    print(loadTime)
+    context['loadTime'] = loadTime
     return render(request, 'testdrive.html', context)
 
 def incident(request):
@@ -114,7 +88,7 @@ def incident(request):
     else:
         # query = get_all_video()
         q1 = request.GET.get('q1','AND')
-        q2 = request.GET.get('q2','DEFAULT')
+        q2 = request.GET.get('q2','all')
         q2 = q2.split('_')
         print('>>>>> query1',q1,'query2',q2)
         operation = q1
@@ -123,45 +97,14 @@ def incident(request):
         context['operation'] = operation
         query = get_video(labels,operation)
         # pagination
-    p = Paginator(query, 5)
-    page = request.GET.get('page')
-    query_p = p.get_page(page)
+    p = Paginator(query, 5) 
+    page = request.GET.get('page') # current page number
+    query_p = p.get_page(page) 
     context['query_p'] = query_p
     context['query'] = query
+    context['current_page'] = page
     request.session['query'] = pickle.dumps(query).hex()
     return render(request, 'incident.html', context)
-
-# def incident2(request, select_operation, selected):
-#     selected = selected.split('_')
-#     factors = ['External','Internal']
-#     # EXTERNAL
-#     actors = ['Vehicle','Truck','Tuk-Tuk','Bus','Motorcycle','Pedestrian','Animal','Cyclist','Scooter','Non-Motor Vehicle','Other Vehicle']
-#     environments = ['Obstacle','Straight Road','Slope','Corner','Crosswalk','Junction','Roundabout','Speed Bump']
-#     scenarios = ['Cut In','Parking','Emergency Brake','Red Light Running','Wrong-Way Driving','Turning Across Lane','Other Scenario']
-#     # INTERNAL
-#     occupants = ['Driver','Passenger','Emergency']
-#     systems = ['Battery','Sensing','Localization','Planning','Computing Node']
-#     context = {'labels':{'Actor':actors, 'Environment':environments,
-#                 'Scenario':scenarios, 'Occupant':occupants, 'System':systems}}
-#     labels = []
-#     if request.method == "POST":
-#         # get data
-#         labels = request.POST.getlist('label')
-#         operation = request.POST['operation']    
-#     else:
-#         labels = selected
-#         operation = select_operation
-#     context['selected'] = labels
-#     context['operation'] = operation
-#     query = get_video(labels,operation)
-#     # pagination
-#     p = Paginator(query, 5)
-#     page = request.GET.get('page')
-#     query_p = p.get_page(page)
-#     context['query_p'] = query_p
-#     context['query'] = query
-#     request.session['query'] = pickle.dumps(query).hex()
-#     return render(request, 'incident.html', context)
 
 def edit(request,to_edit):
     print('TO EDIT: ',to_edit)

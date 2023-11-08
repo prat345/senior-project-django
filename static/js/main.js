@@ -1,17 +1,18 @@
-var click = 1;
+let click = 1;
 function showvid(url, index, button){
-    var main_block = document.getElementById(`block-${index}`);
-    var vid_block = document.getElementById(`vid-block-${index}`);
-    if(vid_block==null){
+    let main_block = document.getElementById(`block-${index}`);
+    let vid_block = document.getElementById(`vid-block-${index}`);
+    if(!vid_block){
         url = url.split('/view?usp=drivesdk')[0];
-        var vid_block = document.createElement(`div`);   
+        vid_block = document.createElement(`div`);   
         vid_block.setAttribute('id',`vid-block-${index}`);
         let device_width = window.innerWidth;
         // device_width = 400;
+        let width;
         if(device_width <= 450){
-            var width = device_width/1.05;
+            width = device_width/1.05;
         }else{
-            var width = device_width/1.25;
+            width = device_width/1.25;
         }
         let height = width/1.7; 
         vid_block.innerHTML=

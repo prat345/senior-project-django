@@ -8,7 +8,7 @@ urlpatterns = [
     path('about',views.about),
     path('summary',views.summary),
     path('testdrive',views.testdrive),
-    path('testdrive/<selected>',views.testdrive2),
+    path('testdrive/<selected>',views.testdrive),
     path('incident',views.incident),
     # path('incident/<select_operation>/<selected>',views.incident2),
     path('edit/<to_edit>',views.edit),

@@ -1,11 +1,14 @@
 :root{
-  --green:rgb(5, 217, 5);
+  --green:rgb(16, 194, 1);
   --dgreen:rgb(12, 148, 12);
   --grey:rgb(237, 236, 236);
   --orange:rgb(255, 123, 0);
 }
 *{
   box-sizing: border-box;
+}
+.navbar{
+  background-color: var(--green);
 }
 h1{
   color: var(--green);
@@ -16,16 +19,21 @@ body{
 }
 .button, button{
   border: none;
-  background-color: rgb(177, 177, 177);
-  color: rgb(0, 0, 0);
+  background-color: var(--green);
+  color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px 15px;
-  margin-right: 10px;
+  margin:5px;
   text-align: center;
   display: inline-block;
   text-decoration: none;
 }
-  .button:hover, button:hover, .label:hover + span{
+  .button:hover, button:hover{
+  background-color: var(--dgreen);
+  transition-duration: 0.5s;
+  color: white;
+}
+.label:hover + span{
   background-color: var(--green);
   transition-duration: 0.5s;
   color: white;
@@ -35,12 +43,8 @@ body{
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   padding: 10px;
-  margin: 10px 0px;
-  box-shadow: 5px 5px 5px rgb(166, 166, 166);
-
-}
-.box-top{
-  height: 110px;
+  margin: 0px;
+  box-shadow: 3px 3px 8px silver;
 }
 /* Test Log */
 span.value{
@@ -54,10 +58,10 @@ span.header{
 /* Incident.html */
 .block {
   background-color: rgb(255, 255, 255);
-  padding: 10px 20px 20px 30px;
-  margin: 10px;
+  padding: 20px 30px;
+  margin-bottom: 15px;
   border-radius: 5px;
-  box-shadow: 3px 3px 5px rgb(166, 166, 166);
+  box-shadow: 3px 3px 5px silver;
 }
 .sub-topic{
   font-size: 1.2rem;
@@ -107,3 +111,9 @@ label span {
   background-color: var(--green) !Important;
   border: 1px solid var(--green);
 }
+
+/* @media (max-width:992px){
+  .main-col{
+      width: 100%;
+  }
+} */

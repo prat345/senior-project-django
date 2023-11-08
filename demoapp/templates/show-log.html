@@ -12,6 +12,24 @@
         .log-table{
             overflow-x: scroll;
         }
+        @media (max-width:800px){
+            tbody > tr > td:nth-child(n+1):nth-child(-n+2),
+            thead > tr > th:nth-child(n+1):nth-child(-n+2),
+            tbody > tr > td:nth-child(n+5):nth-child(-n+7),
+            thead > tr > th:nth-child(n+5):nth-child(-n+7) {
+                display: none;
+            }
+            .container-xl{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            th{
+            font-size: 1rem;
+            }
+            tr{
+                font-size: 0.75rem;
+            }
+        }
     </style>
 {% endblock %}
 
@@ -33,16 +51,16 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                        <th scope="col"><span class="header">Id</span></th>
-                        <th scope="col"><span class="header">Stamp</span></th>
-                        <th scope="col"><span class="header">Date</span></th>
-                        <th scope="col"><span class="header">Time</span></th>
-                        <th scope="col"><span class="header">Driver</span></th>
-                        <th scope="col"><span class="header">Vehicle</span></th>
-                        <th scope="col"><span class="header">Location</span></th>
-                        <th scope="col"><span class="header">Labels</span></th>
-                        <th scope="col"><span class="header">Remark</span></th>
-                        <th scope="col"><span class="header">Action</span></th>
+                            <th scope="col"><span class="header">Id</span></th>
+                            <th scope="col"><span class="header">Stamp</span></th>
+                            <th scope="col"><span class="header">Date</span></th>
+                            <th scope="col"><span class="header">Time</span></th>
+                            <th scope="col"><span class="header">Driver</span></th>
+                            <th scope="col"><span class="header">Vehicle</span></th>
+                            <th scope="col"><span class="header">Location</span></th>
+                            <th scope="col"><span class="header">Labels</span></th>
+                            <th scope="col"><span class="header">Remark</span></th>
+                            <th scope="col"><span class="header">Action</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +75,7 @@
                             <td><span class="value">{{ log.location }}</span></td>
                             <td><span class="value">{{ log.label }}</span></td>
                             <td><span class="value">{{ log.note }}</span></td>
-                            <td>
+                            <td class="btn-col">
                                 <a href="edit-log/{{log.id}}" class="button">edit</a>
                                 <a href="delete-log/{{log.id}}" class="button"
                                 onclick="return confirm('Confirm Deletion')"
@@ -85,19 +103,31 @@
                 </li>
                 {% endif %}
 
+                {% if log_p.number|add:'-2' > 1 and log_p.paginator.num_pages < log_p.number|add:'2' %}
+                <li class="page-item"><a class="page-link" href="?page={{ log_p.number|add:'-2' }}"> &hellip; </a></li>
+                {% endif %}
+
                 {% for i in log_p.paginator.page_range  %}
                     {% if i == log_p.number %}
-                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% elif i > log_p.number|add:'-2' and i < log_p.number|add:'2' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                     {% endif %}
                 {% endfor %}
+
+                {% if log_p.paginator.num_pages > log_p.number|add:'3' %}
+                <li class="page-item"><a class="page-link" 
+                    href="?page={{ log_p.paginator.num_pages|add:'-2' }}">&hellip;</a>
+                </li>
+                <li class="page-item"><a class="page-link" 
+                    href="?page={{ log_p.paginator.num_pages|add:'-1' }}">{{ log_p.paginator.num_pages|add:'-1' }}</a>
+                </li>
+                {% endif %}
 
                 {% if log_p.has_next %}
                 <li class="page-item">
                     <a class="page-link" href="?page={{ log_p.paginator.num_pages }}" aria-label="Last">
-                    <span aria-hidden="false">Last&raquo;</span>
-                    </a>
+                    <span aria-hidden="false">Last&raquo;</span></a>
                 </li>
                 {% else %}
                 <li class="page-item disable">

@@ -31,11 +31,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="date">Date</label>
-                                <input type="date" class="form-control" id="form-date" name="date">
+                                <input type="date" class="form-control" id="date" name="date">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="time">Time</label>
-                                <input type="time" class="form-control" id="form-time" name="time">
+                                <input type="time" class="form-control" id="time" name="time">
                             </div>
                         </div>
 
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="location" id="NBTC" value="NBTC">
-                                    <label class="form-check-label" for="HW">NBTC</label>
+                                    <label class="form-check-label" for="NBTC">NBTC</label>
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
@@ -72,28 +72,28 @@
                             <div class="form-group col-md-12">
                                 <p>Label</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Battery">
-                                    <label class="form-check-label">Battery</label>
+                                    <input class="form-check-input" type="radio" name="label" id="battery" value="Battery">
+                                    <label class="form-check-label" for="battery">Battery</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Sensing">
-                                    <label class="form-check-label">Sensing</label>
+                                    <input class="form-check-input" type="radio" name="label" id="sensing" value="Sensing">
+                                    <label class="form-check-label" for="sensing">Sensing</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Localization">
-                                    <label class="form-check-label">Localization</label>
+                                    <input class="form-check-input" type="radio" name="label" id="localization" value="Localization">
+                                    <label class="form-check-label" for="localization">Localization</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Planning">
-                                    <label class="form-check-label">Planning</label>
+                                    <input class="form-check-input" type="radio" name="label" id="planning" value="Planning">
+                                    <label class="form-check-label" for="planning">Planning</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Computing Node">
-                                    <label class="form-check-label">Computing Node</label>
+                                    <input class="form-check-input" type="radio" name="label" id="node" value="Computing Node">
+                                    <label class="form-check-label" for="node">Computing Node</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Incident">
-                                    <label class="form-check-label">Incident</label>
+                                    <input class="form-check-input" type="radio" name="label" id="incident" value="Incident">
+                                    <label class="form-check-label" for="incident">Incident</label>
                                 </div>
                             </div>
                         </div>
@@ -113,10 +113,10 @@
         </div>
         <script>
             var d = new Date();
-            document.getElementById('form-date').valueAsDate = d;
+            document.getElementById('date').valueAsDate = d;
             var time = d.toLocaleTimeString("en-GB", {hour: '2-digit', minute:'2-digit', second:"2-digit", hour12: false});
             console.log(time)
-            document.getElementById('form-time').defaultValue = time;
+            document.getElementById('time').defaultValue = time;
         </script>
 
 {% endblock %}

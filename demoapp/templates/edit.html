@@ -13,40 +13,40 @@
                 <div class="col-12 col-sm-10 col-lg-6">
                     <div class="row">
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="name">stamp</label>
-                            <input type="text" name='stamp' class="form-control" value="{{to_edit.stamp}}" disabled>
+                            <label for="stamp">stamp</label>
+                            <input type="text" name='stamp' class="form-control" id="stamp" value="{{to_edit.stamp}}" disabled>
                         </div>
                         <div class='form-group mb-3 col-sm-6'>
                             <label for="testdrive">testdrive</label>
-                            <input type="text" name='testdrive' class="form-control" value="{{to_edit.testdrive}}" disabled>
+                            <input type="text" name='testdrive' class="form-control" id="testdrive" value="{{to_edit.testdrive}}" disabled>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class='form-group mb-3 col-sm-6'>
                             <label for="vehicle">vehicle</label>
-                            <input type="text" name='vehicle' class="form-control" value="{{to_edit.vehicle}}" disabled>
+                            <input type="text" name='vehicle' class="form-control" id="vehicle" value="{{to_edit.vehicle}}" disabled>
                         </div>
                         <div class='form-group mb-3 col-sm-6'>
                             <label for="location">location</label>
-                            <input type="text" name='location' class="form-control" value="{{to_edit.location}}" disabled>
+                            <input type="text" name='location' class="form-control" id="location" value="{{to_edit.location}}" disabled>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class='form-group mb-3 col-sm-6'>
                             <label for="date">date</label>
-                            <input type="text" name='date' class="form-control" value="{{to_edit.date}}" disabled>
+                            <input type="text" name='date' class="form-control" id="date" value="{{to_edit.date}}" disabled>
                         </div>
                         <div class='form-group mb-3 col-sm-6'>
                             <label for="time">time</label>
-                            <input type="text" name='time' class="form-control" value="{{to_edit.time}}" disabled>
+                            <input type="text" name='time' class="form-control" id="time" value="{{to_edit.time}}" disabled>
                         </div>
                     </div>
 
                     <div class='form-group mb-3'>
                         <label for="label">Labels</label>
-                        <input type="text" name='label' class="form-control" value="{{ to_edit.tags }}">
+                        <input type="text" name='label' class="form-control" id="label" value="{{ to_edit.tags }}">
                         <p>each label seperated by comma and space</p>
                     </div>
 

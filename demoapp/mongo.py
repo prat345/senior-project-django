@@ -48,18 +48,18 @@ def get_stations():
     station_wp = pd.read_csv('static/csv/station.csv', index_col=['location','vehicle','index'], skipinitialspace=True)
     return station_wp
 
-def get_video(labels,operation):
+def get_video(labels=[],operation='AND'):
     key = 'tags'
-    if 'DEFAULT' in labels:
+    if 'all' in labels:
         query = vid_col.find({}) # default show all vids
     else:
-        if operation == 'AND':
-            query = vid_col.find({key:{"$all":labels}})
-        elif operation == 'OR':
+        if operation == 'OR':
             query = vid_col.find({key:{"$in":labels}})
+        else:
+            query = vid_col.find({key:{"$all":labels}})
     query = list(query)
-    for dic in query:
-        dic['tags'] = ', '.join(list(dic['tags']))
+    # for dic in query:
+    #     dic['tags'] = ', '.join(list(dic['tags']))
     return query
 
 def get_all_video(query={}):

@@ -112,8 +112,8 @@ def waypoint_chart(df, incident_d, testdrive, station_wp):
     )
     fig.update_layout(
                 margin=dict(l=10, r=10, t=0, b=20),
-                height=700,
-                width=1000,
+                # height=700,
+                # width=1000,
                 font_family=selected_font,
                 # paper_bgcolor=bg_color,
                 # plot_bgcolor=bg_color,

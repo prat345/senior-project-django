@@ -30,11 +30,17 @@
             /* margin:5px !important; */
             padding: 7px !important;
         }
+        @media(max-width:800px){
+            .content-container{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
+    <div class="container-fluid content-container">
         <h1 style="margin-left: 10px;">Summary</h1>     
         <div class="container-fluid">
             <div class="row">

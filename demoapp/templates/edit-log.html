@@ -29,22 +29,22 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="date">Old Date</label>
-                                <input type="text" class="form-control" id="form-date" name="date" value="{{ log.date }}" disabled>
+                                <input type="text" class="form-control" id="date" name="date" value="{{ log.date }}" disabled>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="date">New Date</label>
-                                <input type="date" class="form-control" id="form-date" name="date" value="{{ log.date }}">
+                                <input type="date" class="form-control" id="date" name="date" value="{{ log.date }}">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="time">Old Time</label>
-                                <input type="text" class="form-control" id="form-time" name="time" value="{{ log.time }}" disabled>
+                                <input type="text" class="form-control" id="time" name="time" value="{{ log.time }}" disabled>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="time">New Time</label>
-                                <input type="time" class="form-control" id="form-time" name="time" value="{{ log.time }}">
+                                <input type="time" class="form-control" id="time" name="time" value="{{ log.time }}">
                             </div>
                         </div>
                         
@@ -67,28 +67,28 @@
                             <div class="form-group col-md-9">
                                 <p>New Label</p>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Battery">
-                                    <label class="form-check-label">Battery</label>
+                                    <label class="form-check-label" for="battery">Battery</label>
+                                    <input class="form-check-input" type="radio" name="label" id="battery" value="Battery">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Sensing">
-                                    <label class="form-check-label">Sensing</label>
+                                    <label class="form-check-label" for="sensing">Sensing</label>
+                                    <input class="form-check-input" type="radio" name="label" id="sensing" value="Sensing">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Localization">
-                                    <label class="form-check-label">Localization</label>
+                                    <label class="form-check-label" for="localization">Localization</label>
+                                    <input class="form-check-input" type="radio" name="label" id="localization" value="Localization">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Planning">
-                                    <label class="form-check-label">Planning</label>
+                                    <label class="form-check-label" for="planning">Planning</label>
+                                    <input class="form-check-input" type="radio" name="label" id="planning" value="Planning">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Computing Node">
-                                    <label class="form-check-label">Computing Node</label>
+                                    <label class="form-check-label" for="node">Computing Node</label>
+                                    <input class="form-check-input" type="radio" name="label" id="node" value="Computing Node">
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="label" value="Incident">
-                                    <label class="form-check-label">Incident</label>
+                                    <label class="form-check-label" for="incident">Incident</label>
+                                    <input class="form-check-input" type="radio" name="label" id="incident" value="Incident">
                                 </div>
                             </div>
                         </div>

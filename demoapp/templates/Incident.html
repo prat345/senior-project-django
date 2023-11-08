@@ -3,6 +3,9 @@
 {% block title %}
     <title>Incident Query</title>
     <style>
+        h1{
+            padding-left: 20px;
+        }
         th, td{
         border: 5px solid rgb(237, 236, 236);
         border-collapse: collapse;
@@ -18,31 +21,76 @@
         .label-table{
             overflow-x: scroll;
         }
+        .block-vid > iframe{
+            border-radius: 10px 0 0 10px;
+        }
+        .block-text {
+            padding-top: 10px;
+            padding-left: 25px;
+        }
+        ul.incident-text{
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            padding: 0;
+            margin: 0;
+        }
+        ul.incident-text > li{
+            margin-right: 1em;
+            margin-bottom: 0.2em;
+        }
+        ul.incident-text > li:last-child {
+            margin-bottom: 10px;
+        }
+        ul.incident-text > li:last-child .btn-label {
+            background-color: #dddddd;
+            padding: 3px 7px;
+            font-size: 12px;
+            margin: 0;
+            color: #808080;
+            border: 1px solid #e2e2e2;
+            border-radius: 10px;
+            margin-left: 5px;
+        }
+        /* vid-block 100% width */
+        @media (max-width:992px){
+            ul.incident-text{
+                flex-direction: row;
+            }
+            .block-vid > iframe{
+                border-radius: 10px 10px 0 0;
+            }
+        }
         @media (max-width:800px){
-            .container-fluid{
-                padding:0 3px !important;
+            .container-xl{
+                padding:0 !important;
+            }
+            /* only show label */
+            ul.incident-text > li:not(:last-child){
+                display: none;
             }
         }
         @media (max-width:450px){
-            .block{
-                padding-left:0;
-                padding-right: 0px;
-            }
+            /* .block{
+                padding-left:5px;
+                padding-right: 5px;
+            } */
             .block-text{
-                margin: 0px 30px
+                padding: 5px 20px;
+            }
+        }
+        @media(max-width:800px){
+            .content-container{
+                padding-left: 0;
+                padding-right: 0;
             }
         }
     </style>
-    <!-- <script>
-        function change_url(){
-            document.location.href="?q1={{ operation }}&q2={{ selected|join:'_' }}";
-            // document.location.href="/about";
-        }
-    </script> -->
 {% endblock %}
 
 {% block content %}
-        <div class="container-xl" >
+        <div class="container-fluid content-container" >
             <h1>Incident Query</h1>
             <!-- messages -->
             {% if messages %}
@@ -52,157 +100,287 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            
-            <form action="" method="POST">
-                {% csrf_token %}
-                <div class="label-table">
-                    <table class="table table-light" border="1" cellpadding="10">
-                        <thead>
-                            <th colspan="3">
-                                {% if 'External' in selected %}
-                                    <label><input class="label" type="checkbox" name="label" value="External" checked><span style="padding-left: 50px; padding-right: 50px;">External</span></label>
-                                {% else %}
-                                    <label><input class="label" type="checkbox" name="label" value="External"><span style="padding-left: 50px; padding-right: 50px;">External</span></label>
-                                {% endif %}
-                            </th>
-                            <th colspan="2">
-                                {% if 'Internal' in selected %}
-                                    <label><input class="label" type="checkbox" name="label" value="Internal" checked><span style="padding-left: 50px; padding-right: 50px;">Internal</span></label>
-                                {% else %}
-                                    <label><input class="label" type="checkbox" name="label" value="Internal"><span style="padding-left: 50px; padding-right: 50px;">Internal</span></label>
-                                {% endif %}
-                            </th>
-                        </thead>
-                        <tbody  align="left" valign="top">
-                            <!-- tr=row td=col -->
-                            <tr> 
-                                {% for topic,arr in labels.items %}
-                                    <td class="sub-topic">
-                                        {% if topic in selected %}
-                                            <label><input class="label" type="checkbox" name="label" value="{{topic}}" checked><span>{{topic}}</span></label>
-                                        {% else %}
-                                            <label><input class="label" type="checkbox" name="label" value="{{topic}}"><span>{{topic}}</span></label>
-                                        {% endif %}
-                                    </td>
-                                {% endfor %}
-                            </tr>
-                            <tr>
-                                {% for topic,arr in labels.items %}
-                                    <td class="sub-topic-2">
-                                    {% for label in arr %}
-                                        {% if label in selected %}
-                                            <label><input class="label" type="checkbox" name="label" value="{{label}}" checked><span>{{label}}</span></label>
-                                        {% else %}
-                                            <label><input class="label" type="checkbox" name="label" value="{{label}}"><span>{{label}}</span></label>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </td>
-                                {% endfor %}
-                            </tr> 
-                            <tr>
-                                <td colspan="5">
-                                    <label><input class="label" type="checkbox" name="label" value=""><span style="padding-left: 100px; padding-right: 100px;">No Label</span></label>
-                                </td>
-                            </tr>  
-                        </tbody>
-                    </table>
-                </div>
-                
-                <div style="margin: 5px 0;">
-                    <label for="operation">Operation&nbsp;&nbsp;</label>
-                    <!-- default OR -->
-                    {% if operation == 'OR' %}
-                        <input type="radio" name="operation" value="AND" >AND</input>
-                        <input type="radio" name="operation" value="OR" checked>OR</input>
-                    {% else %} 
-                        <input type="radio" name="operation" value="AND" checked>AND</input>
-                        <input type="radio" name="operation" value="OR">OR</input>
-                    {% endif %}
-                </div>
-                <div style="margin-top: 5px; margin-bottom: 20px;">
-                    <button type="submit">Submit</button> 
-                    <!-- <button type="button" onclick ="change_url()">Submit</button>  -->
-                    <a href="/incident" class="button">Reset</a>
-                </div>
-            </form>
+            <!-- Label Table -->
         
-            
-            <!-- Display Query -->
-            <div>Selected({{ operation }}): {{ selected|join:', ' }}</div>
-            <p>{{ query|length }} results</p>
-            <!-- <p>{{ query }}</p> -->
-            {% for incident in query_p %}
-                <!-- <p>{{ incident.url }}</p> -->
-                <!-- {% for k,v in incident.items %}
-                <p>{{ k }}{{ v }}</p>
-                {% endfor %} --> 
-                <div class="block" id="block-{{ forloop.counter }}">
-                    <div class="block-text">
-                        <div>
-                            <span class="topic">Stamp:</span> <span class="value">{{ incident.stamp }}</span>&nbsp;&nbsp;
-                            <span class="topic">Testdrive:</span> <span class="value">{{ incident.testdrive }}</span> &nbsp;&nbsp;
-                        </div>
-                        <div>
-                            <span class="topic">Vehicle:</span> <span class="value">{{ incident.vehicle }}</span> &nbsp;&nbsp;
-                            <span class="topic">Location:</span> <span class="value">{{ incident.location }}</span> &nbsp;&nbsp;
-                            <span class="topic">Date:</span> <span class="value">{{ incident.date }}</span> &nbsp;&nbsp;
-                            <span class="topic">Time:</span> <span class="value">{{ incident.time }}</span> &nbsp;&nbsp;
-                        </div>
-                        <div style="margin-bottom: 5px;">
-                            <span class="topic">Labels:</span> <span class="value">{{ incident.tags }}</span> &nbsp;&nbsp;
-                        </div>
-                        <p>
-                            <button class="btn-success" onclick="showvid('{{ incident.url }}', '{{forloop.counter}}', this);">view</button>
-                            <!-- <button type="submit" name="video" value="{{ incident.url }}">view</button> -->
-                            <a href="/edit/{{incident.stamp}}" class="button" id="edit-button">edit</a>
-                            <a href="/delete/{{incident.stamp}}" class="button" id="delete-button"
-                                    onclick="return confirm('Confirm deletion')"
-                                    >delete</a>
-                        </p>
+            <div class="containter-fluid content-container">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="label-table">
+                        <table class="table table-light" border="1" cellpadding="10">
+                            <thead>
+                                <th colspan="3">
+                                    {% if 'External' in selected %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="External" onclick="recordLabel(this.value)" checked>
+                                            <span style="padding-left: 50px; padding-right: 50px;">External</span>
+                                        </label>
+                                    {% else %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="External" onclick="recordLabel(this.value)">
+                                            <span style="padding-left: 50px; padding-right: 50px;">External</span>
+                                        </label>
+                                    {% endif %}
+                                </th>
+                                <th colspan="2">
+                                    {% if 'Internal' in selected %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="Internal" onclick="recordLabel(this.value)" checked>
+                                            <span style="padding-left: 50px; padding-right: 50px;">Internal</span>
+                                        </label>
+                                    {% else %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="Internal" onclick="recordLabel(this.value)">
+                                            <span style="padding-left: 50px; padding-right: 50px;">Internal</span>
+                                        </label>
+                                    {% endif %}
+                                </th>
+                            </thead>
+                            <tbody  align="left" valign="top">
+                                <!-- tr=row td=col -->
+                                <tr> 
+                                    {% for topic,arr in labels.items %}
+                                        <td class="sub-topic">
+                                            {% if topic in selected %}
+                                                <label>
+                                                    <input class="label" type="checkbox" name="label" value="{{topic}}" onclick="recordLabel(this.value)" checked>
+                                                    <span>{{topic}}</span>
+                                                </label>
+                                            {% else %}
+                                                <label>
+                                                    <input class="label" type="checkbox" name="label" value="{{topic}}" onclick="recordLabel(this.value)">
+                                                    <span>{{topic}}</span>
+                                                </label>
+                                            {% endif %}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                                <tr>
+                                    {% for topic,arr in labels.items %}
+                                        <td class="sub-topic-2">
+                                        {% for label in arr %}
+                                            {% if label in selected %}
+                                                <label>
+                                                    <input class="label" type="checkbox" name="label" value="{{label}}"
+                                                     onclick="recordLabel(this.value)" checked>
+                                                     <span>{{label}}</span>
+                                                </label>
+                                            {% else %}
+                                                <label>
+                                                    <input class="label" type="checkbox" name="label" value="{{label}}" onclick="recordLabel(this.value)">
+                                                    <span>{{label}}</span>
+                                                </label>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </td>
+                                    {% endfor %}
+                                </tr> 
+                                <tr>
+                                    <td colspan="5">
+                                        {% if "" in selected %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="" onclick="recordLabel(this.value)" checked>
+                                            <span style="padding-left: 100px; padding-right: 100px;">No Label</span>
+                                        </label>
+                                        {% else %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="" onclick="recordLabel(this.value)">
+                                            <span style="padding-left: 100px; padding-right: 100px;">No Label</span>
+                                        </label>
+                                        {% endif %}
+                                    </td>
+                                </tr>  
+                            </tbody>
+                        </table>
                     </div>
-
-                    <!-- <div id="video"></div> -->
+                    
+                    <div class="container-xl">
+                        <div style="margin: 5px 0; margin-left: 5px;">
+                            <span>Operation :&nbsp;</span>
+                            <!-- default AND -->
+                            {% if operation == 'OR' %}
+                                <input class="form-check-input" type="radio" id="and" name="operation"
+                                        value="AND" onclick="recordOperation(this.value)">
+                                <label for="and">And&nbsp;</label>
+        
+                                <input class="form-check-input" type="radio" id="or" name="operation"
+                                        value="OR" onclick="recordOperation(this.value)" checked>
+                                <label for="and">Or</label>
+                            {% else %} 
+                                <input class="form-check-input" type="radio" id="and" name="operation"
+                                        value="AND" onclick="recordOperation(this.value)" checked>
+                                <label for="and">And&nbsp;</label>
+        
+                                <input class="form-check-input" type="radio" id="or" name="operation"
+                                        value="OR" onclick="recordOperation(this.value)">
+                                <label for="and">Or</label>
+                            {% endif %}
+                        </div>
+                        <!-- SUBMIT -->
+                        <div style="margin-top: 5px; margin-bottom: 20px; margin-left: 5x;">
+                            <!-- <button type="submit">Submit</button>  -->
+                            <button type="button" onclick ="changeUrl()">Submit</button> 
+                            <a href="/incident" class="button">Clear</a>
+                        </div>
+                    </div>
+                    
+                </form>
+                
+                <div class="container-xl">
+                    <hr>
+                    <!-- Display Query -->
+                    <div style="margin-left: 5px;">
+                        <p>Selected({{ operation }}): {{ selected|join:', ' }}</p>
+                        <p>{{ query|length }} results</p>
+                    </div>
+                    
+                    <!-- <p>{{ query }}</p> -->
+                    {% for incident in query_p %}
+                        <!-- <p>{{ incident.url }}</p> -->
+                        <!-- {% for k,v in incident.items %}
+                        <p>{{ k }}{{ v }}</p>
+                        {% endfor %} --> 
+                        <div class="block" id="block-{{ forloop.counter }}">
+                            <div class="row">
+                                <!-- VIDEO -->
+                                <div class="col-12 col-lg-8 block-vid" id="vid-{{ forloop.counter }}" style="padding: 0;">
+                                    <script>
+                                        showVid('{{ incident.url }}', 'vid-{{ forloop.counter }}')
+                                        function showVid(url, id){
+                                            url = url.split('/view?usp=drivesdk')[0] + '/preview';
+                                            e = document.getElementById(id)
+                                            // e.style.backgroundColor = 'rgb(5, 217, 5)';
+                                            let vid = document.createElement('iframe');
+                                            vid.setAttribute('class', 'vid-frame');
+                                            vid.src = url;
+                                            vid.width = '100%';
+                                            vid.style.aspectRatio = 16/9;
+                                            vid.style.display = 'block';
+                                            // vid.style.borderRadius = '10px'
+                                            e.appendChild(vid);
+                                        }
+                                    </script>
+                                </div>
+        
+                                <div class="col-12 col-lg-4 block-text">
+                                    <ul class="incident-text">
+                                        <li><span class="topic">Stamp:</span> <span class="value">{{ incident.stamp }}</span></li>
+                                        <li><span class="topic">Testdrive:</span> <span class="value">{{ incident.testdrive }}</span></li>
+                                        <li><span class="topic">Vehicle:</span> <span class="value">{{ incident.vehicle }}</span> </li>
+                                        <li><span class="topic">Location:</span> <span class="value">{{ incident.location }}</span></li>
+                                        <li><span class="topic">Date:</span> <span class="value">{{ incident.date }}</span></li>
+                                        <li><span class="topic">Time:</span> <span class="value">{{ incident.time }}</span></li>
+                                        <li><span class="topic">Labels:</span> 
+                                            <!-- <span class="value">{{ incident.tags }}</span> -->
+                                            {% for label in incident.tags %}
+                                                <span class="btn-label">{{ label }}</span>
+                                            {% endfor %}
+                                        </li>
+                                    </ul>
+                                    <p class="btn-container">
+                                        <a href="/edit/{{incident.stamp}}" class="button" id="edit-button" style="margin-left: 0;">edit</a>
+                                        <a href="/delete/{{incident.stamp}}" class="button" id="delete-button"
+                                            onclick="return confirm('Confirm deletion')"
+                                            >delete</a>
+                                    </p>
+                                </div>
+                            </div>
+        
+                            <!-- <div id="video"></div> -->
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
 
-            <br>
-            <!-- pagination -->
-            <nav aria-label="...">
-                <ul class="pagination justify-content-center">
-                {% if query_p.has_previous %}
-                <li class="page-item">
-                    <a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page=1" aria-label="First">
-                    <span aria-hidden="false">&laquo;First</span>
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disable">
-                    <a class="page-link">&laquo;First</a>
-                </li>
-                {% endif %}
-
-                {% for i in query_p.paginator.page_range  %}
-                    {% if i == query_p.number %}
-                        <li class="page-item active"><a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ i }}">{{ i }}</a></li>
+    
+                <br>
+                <!-- pagination -->
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-center">
+                    {% if query_p.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page=1" aria-label="First">
+                        <span aria-hidden="false">&laquo;First</span>
+                        </a>
+                    </li>
                     {% else %}
-                        <li class="page-item"><a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ i }}">{{ i }}</a></li>
+                    <li class="page-item disable">
+                        <a class="page-link">&laquo;First</a>
+                    </li>
                     {% endif %}
-                {% endfor %}
+                    
+                    {% if query_p.number|add:'-2' > 1 and query_p.paginator.num_pages < query_p.number|add:'2' %}
+                    <li class="page-item"><a class="page-link" 
+                        href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ query_p.number|add:'-2' }}"> &hellip; </a></li>
+                    {% endif %}
 
-                {% if query_p.has_next %}
-                <li class="page-item">
-                    <a class="page-link" href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ query_p.paginator.num_pages }}" aria-label="Last">
-                    <span aria-hidden="false">Last&raquo;</span>
-                    </a>
-                </li>
-                {% else %}
-                <li class="page-item disable">
-                    <a class="page-link">Last&raquo;</a>
-                </li>
-                {% endif %}
-                </ul>
-            </nav>
+                    {% for i in query_p.paginator.page_range %}
+                        {% if i == query_p.number %}
+                        <li class="page-item active"><a class="page-link" 
+                            href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ i }}">{{ i }}</a></li>
+                        {% elif i > query_p.number|add:'-2' and i < query_p.number|add:'2' %}
+                        <li class="page-item"><a class="page-link" 
+                            href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
 
-            <script src="static/js/main.js"></script>
+                    {% if query_p.paginator.num_pages > query_p.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" 
+                        href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ query_p.paginator.num_pages|add:'-2' }}">
+                        &hellip; </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" 
+                        href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ query_p.paginator.num_pages|add:'-1' }}">
+                        {{ query_p.paginator.num_pages|add:'-1' }}</a>
+                    </li>
+                    {% endif %}
+    
+                    {% if query_p.has_next %}
+                        <li class="page-item"><a class="page-link" 
+                            href="?q1={{ operation }}&q2={{ selected|join:'_' }}&page={{ query_p.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="false">Last&raquo;</span></a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disable">
+                            <a class="page-link">Last&raquo;</a>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        
+
+            <script>
+                function showVid(e, url, index){
+                    url = url.split('/view?usp=drivesdk')[0] + '/preview';
+                    e.style.backgroundColor = 'rgb(5, 217, 5)';
+                    let vid = document.createElement('iframe');
+                    vid.src = url
+                    e.appendChild(vid);
+                }
+                function changeUrl(){
+                    operation = document.querySelector('.form-check-input:checked').value;
+                    let selected = document.querySelectorAll('.label:checked'); // return node list
+                    selected = Array.prototype.slice.call(selected);
+                    let newSelected = selected.map(item => { return item.value });
+                    // for (let i of selected) {
+                    //     console.log(i.value);
+                    //     if (!labels.includes(String(i))){
+                    //         labels.push(i.value);
+                    //     }
+                    // }
+                    // labels = [...new Set(labels)];
+                    // console.log(selected)
+                    // console.log(operation[0].value, selected)
+                    document.location.href=`?q1=${ operation }&q2=${ newSelected.join('_') }&page=1`;
+                    // document.location.href="/about";
+                }
+                let labels = [], operation = '';
+                function recordLabel(label){
+                    console.log(label);
+                }
+                function recordOperation(opt){
+                    console.log(opt);
+                }
+            </script>
+
         </div>
 {% endblock %}

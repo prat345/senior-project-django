@@ -39,19 +39,31 @@
             text-align: center;
             color: rgb(13, 246, 16);
         }
-        .box:last-child{
+        .row:last-child .box{
             overflow-x:scroll;
         }
         form {
             display: inline;
-            margin-right: 20px;
+            margin-right: 10px;
         }
+        @media(max-width:800px) {
+            .content-container{
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        /* @media(max-width:500px) {
+            .row:last-child .box{
+                overflow-x:scroll;
+                aspect-ratio: 1.5;
+            }
+        } */
     </style>
 {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
-        <h1 style="margin-left: 10px;">{{ selected_test }}</h1>
+        <h1>{{ selected_test }}</h1>
         <div class="container-fluid" style="margin-top: 20px; margin-bottom: 5px;">
             <!-- DROPDOWN -->
             <form name=selectTestdrive action="" method=POST id="dropdown">
@@ -75,7 +87,7 @@
             </form>
         </div>
 
-        <div class="container-fluid">
+        <div class="container-fluid content-container">
             <div class="row top">
                 {% for k,v in stats.items %}
                 <div class="col-6 col-md-4 col-lg-2">
@@ -86,9 +98,7 @@
                 </div>
                 {% endfor %}
             </div>
-        </div>
-
-        <div class="container-fluid">
+    
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="box col-md-12">
@@ -103,7 +113,7 @@
                     </div>
                 </div>
             </div>
-
+    
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div class="box col-md-12">
@@ -119,7 +129,7 @@
                 </div>
             </div>
             
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style="position: relative;">
                 <div class="col-12 col-lg-9">
                     <div class="box col-md-12">
                         <h5>Incident Location</h5>
@@ -128,5 +138,10 @@
                 </div>
             </div>
         </div>
+
+        <script>
+            console.log('T: ','{{ loadTime }}');
+        </script>
+
     </div>
 {% endblock %}
