@@ -10,6 +10,17 @@ from django.core.paginator import Paginator
 from demoapp.models import TestLog
 import time
 
+factors = ['External','Internal']
+# EXTERNAL
+actors = ['Vehicle','Truck','Tuk-Tuk','Bus','Motorcycle','Pedestrian','Other Vehicle'] # 'Animal','Cyclist','Scooter','Non-Motor Vehicle',
+environments = ['Obstacle','Straight Road','Slope','Corner','Crosswalk','Junction','Roundabout','Speed Bump']
+scenarios = ['Cut In','Parking','Emergency Brake','Other Scenario'] # 'Red Light Running','Wrong-Way Driving','Turning Across Lane',
+# INTERNAL
+occupants = ['Driver','Passenger','Emergency']
+systems = ['Battery','Sensing','Localization','Planning','Computing Node']
+context = {'labels':{'Actor':actors, 'Environment':environments,
+            'Scenario':scenarios, 'Occupant':occupants, 'System':systems}}
+
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -28,7 +39,7 @@ def summary(request):
     context['incident_num_chart']=incident_num_chart().to_html()
     return render(request, 'summary.html',context)
 
-def testdrive(request, selected='T2-B_SL_NBTC_20230125202407'):
+def testdrive(request, selected='T2-B_SL_NBTC_20230125202407'): # params > selected
     st = time.time()
     collections = get_collection_names()
     incident_d = get_incident()
@@ -36,7 +47,9 @@ def testdrive(request, selected='T2-B_SL_NBTC_20230125202407'):
     testdrive = selected
     if request.method == "POST":
         if 'testdrive' in request.POST:
-            testdrive = request.POST["testdrive"] # get data
+            pass
+            # testdrive = request.POST["testdrive"] # get data
+        # download csv
         elif 'download-csv' in request.POST:
             df = get_data(testdrive)
             response = HttpResponse(content_type='text/csv')
@@ -65,16 +78,6 @@ def testdrive(request, selected='T2-B_SL_NBTC_20230125202407'):
     return render(request, 'testdrive.html', context)
 
 def incident(request):
-    factors = ['External','Internal']
-    # EXTERNAL
-    actors = ['Vehicle','Truck','Tuk-Tuk','Bus','Motorcycle','Pedestrian','Animal','Cyclist','Scooter','Non-Motor Vehicle','Other Vehicle']
-    environments = ['Obstacle','Straight Road','Slope','Corner','Crosswalk','Junction','Roundabout','Speed Bump']
-    scenarios = ['Cut In','Parking','Emergency Brake','Red Light Running','Wrong-Way Driving','Turning Across Lane','Other Scenario']
-    # INTERNAL
-    occupants = ['Driver','Passenger','Emergency']
-    systems = ['Battery','Sensing','Localization','Planning','Computing Node']
-    context = {'labels':{'Actor':actors, 'Environment':environments,
-                'Scenario':scenarios, 'Occupant':occupants, 'System':systems}}
     # all_labels = factors+actors+environments+scenarios+occupants+systems + list(context['labels'].keys())
 
     labels = []
@@ -122,6 +125,7 @@ def edit(request,to_edit):
         messages.success(request,'Update Succesfully')
         return redirect("/incident")
     else:
+        # print(edit_info['tags'], type(edit_info['tags']))
         return render(request, 'edit.html', {'to_edit': edit_info})
 
 def delete(request, to_delete):
@@ -151,7 +155,7 @@ def driver_input(request):
         )
         newlog.save()
         messages.success(request,'Record Successfully')
-        return redirect('/show-log')
+        return redirect('/log/show')
     else:
         return render(request, 'new-log.html')
 
@@ -180,7 +184,7 @@ def edit_log(request, log_id):
             log.label = request.POST["label"]
         log.save()
         messages.success(request,'Update Succesfully')
-        return redirect("/show-log")
+        return redirect("/log/show")
     else:
         return render(request, 'edit-log.html', {'log':log})
 
@@ -188,7 +192,7 @@ def delete_log(request, log_id):
     log = TestLog.objects.get(id=log_id)
     log.delete()
     messages.success(request,'Remove Succesfully')
-    return redirect("/show-log")
+    return redirect("/log/show")
 
 def test(request):
     # testdrive  = 'T2-B_SL_NBTC_20230125202407'

@@ -7,9 +7,9 @@
 *{
   box-sizing: border-box;
 }
-.navbar{
+/* .navbar{
   background-color: var(--green);
-}
+} */
 h1{
   color: var(--green);
 }
@@ -17,27 +17,22 @@ body{
   background-color: var(--grey);
   margin: 0;
 }
-.button, button{
+/* .button, button{
   border: none;
   background-color: var(--green);
   color: rgb(255, 255, 255);
   border-radius: 15px;
   padding: 5px 15px;
-  margin:5px;
+  margin: 5px;
   text-align: center;
   display: inline-block;
   text-decoration: none;
 }
-  .button:hover, button:hover{
+.button:hover, button:hover{
   background-color: var(--dgreen);
   transition-duration: 0.5s;
   color: white;
-}
-.label:hover + span{
-  background-color: var(--green);
-  transition-duration: 0.5s;
-  color: white;
-}
+} */
 
 .box,.box-top{
   background-color: rgb(255, 255, 255);
@@ -58,9 +53,9 @@ span.header{
 /* Incident.html */
 .block {
   background-color: rgb(255, 255, 255);
-  padding: 20px 30px;
-  margin-bottom: 15px;
-  border-radius: 5px;
+  padding: 0 10px;
+  margin-bottom: 20px;
+  border-radius: 10px;
   box-shadow: 3px 3px 5px silver;
 }
 .sub-topic{
@@ -78,17 +73,22 @@ label input[type="checkbox"] {
 }
 label span {
   display: inline-block;
-  padding: 5px 15px;
+  padding: 3px 10px;
   margin: 5px 0px;
-  border: 1px solid var(--green);
-  border-radius: 13px;
-  color: var(--green);
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  color: #808080;
+  background-color: #dddddd;
 }
 .label:checked + span{
   background-color: var(--green);
   color: rgb(255, 255, 255);
   font-style: bold;
-  font-size: 1.1em;
+}
+.label:hover + span{
+  background-color: var(--green);
+  transition-duration: 0.5s;
+  color: white;
 }
 .pagination > li > a
 {
@@ -112,8 +112,17 @@ label span {
   border: 1px solid var(--green);
 }
 
-/* @media (max-width:992px){
-  .main-col{
-      width: 100%;
+/* lg >= 992 */
+@media (max-width:992px){
+  * {
+    font-size: 0.9rem;
+    color: red;
   }
-} */
+}
+/* md >= 768 */
+@media (max-width:768px){
+  * {
+    font-size: 0.8rem;
+    color: blue;
+  }
+}

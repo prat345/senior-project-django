@@ -6,54 +6,54 @@
 
 {% block content %}
     <div class="container-fluid">
-        <h1 style="text-align: center;">Edit Labels</h1>
+        <h1 class="text-center mb-4">Edit Labels</h1>
         <form method="post" action="">
             {% csrf_token %}
             <div class="row justify-content-center">
                 <div class="col-12 col-sm-10 col-lg-6">
                     <div class="row">
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="stamp">stamp</label>
+                            <label for="stamp">Stamp</label>
                             <input type="text" name='stamp' class="form-control" id="stamp" value="{{to_edit.stamp}}" disabled>
                         </div>
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="testdrive">testdrive</label>
+                            <label for="testdrive">Test drive</label>
                             <input type="text" name='testdrive' class="form-control" id="testdrive" value="{{to_edit.testdrive}}" disabled>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="vehicle">vehicle</label>
+                            <label for="vehicle">Vehicle</label>
                             <input type="text" name='vehicle' class="form-control" id="vehicle" value="{{to_edit.vehicle}}" disabled>
                         </div>
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="location">location</label>
+                            <label for="location">Location</label>
                             <input type="text" name='location' class="form-control" id="location" value="{{to_edit.location}}" disabled>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="date">date</label>
+                            <label for="date">Date</label>
                             <input type="text" name='date' class="form-control" id="date" value="{{to_edit.date}}" disabled>
                         </div>
                         <div class='form-group mb-3 col-sm-6'>
-                            <label for="time">time</label>
+                            <label for="time">Time</label>
                             <input type="text" name='time' class="form-control" id="time" value="{{to_edit.time}}" disabled>
                         </div>
                     </div>
 
                     <div class='form-group mb-3'>
                         <label for="label">Labels</label>
-                        <input type="text" name='label' class="form-control" id="label" value="{{ to_edit.tags }}">
-                        <p>each label seperated by comma and space</p>
+                        <div style="font-size: 0.8rem;">each label seperated by comma and space</div>
+                        <input type="text" name='label' class="form-control" id="label" value="{{ to_edit.tags|join:', ' }}">
                     </div>
 
-                    <div class="row justify-content-center">
-                        <input type="submit" value="submit" class="button" 
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary w-100 mx-0"
                         onclick="return confirm('Confirm changes?')"
-                        style="width: 70%; text-align: center;">
+                        >Update</button>
                     </div>
                 </div>
             </div>

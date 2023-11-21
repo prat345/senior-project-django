@@ -17,16 +17,16 @@
                 <div class="col-12 col-sm-10 col-lg-6">
                     <form method="post" action="">
                         {% csrf_token %}
-                        <h1 style="text-align: center;">Edit Log</h1>
+                        <h1 class="text-center mb-4">Edit Log</h1>
 
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="driver">Driver</label>
                                 <input type="text" class="form-control" id="driver" name="driver" value="{{ log.driver }}">
                             </div>
                         </div>
                         
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="date">Old Date</label>
                                 <input type="text" class="form-control" id="date" name="date" value="{{ log.date }}" disabled>
@@ -37,7 +37,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="time">Old Time</label>
                                 <input type="text" class="form-control" id="time" name="time" value="{{ log.time }}" disabled>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="location">Location</label>
                                 <input type="text" class="form-control" id="location" name="location" value="{{ log.location }}">
@@ -59,7 +59,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row mb-3">
                             <div class="form-group col-md-3">
                                 <label for="label">Old Label</label>
                                 <input type="text" class="form-control" id="label" name="label" value="{{ log.label }}" disabled>
@@ -93,14 +93,14 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="mb-3">
                             <label for="note">Remarks</label>
                             <!-- <input type="text" class="form-control" id="note" name="note" value="{{ log.note }}"> -->
                             <textarea class="form-control" name="note" id="note" cols="30" rows="3">{{ log.note }}</textarea>
                         </div>
-                        <br>
-                        <div class="row justify-content-center">
-                            <button type="submit" class="button" style="width: 70%; text-align: center;">Submit</button>
+                        <div>
+                            <button type="submit" class="btn btn-primary w-100 mx-0" 
+                            >Submit</button>
                         </div>
                     </form>
                 </div>

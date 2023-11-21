@@ -57,9 +57,11 @@ def get_video(labels=[],operation='AND'):
             query = vid_col.find({key:{"$in":labels}})
         else:
             query = vid_col.find({key:{"$all":labels}})
-    query = list(query)
     # for dic in query:
+    #     print(type(dic['tags']), ', '.join(list(dic['tags'])))
     #     dic['tags'] = ', '.join(list(dic['tags']))
+    query = list(query)
+    # print(query)
     return query
 
 def get_all_video(query={}):
@@ -70,6 +72,8 @@ def get_all_video(query={}):
     return query
 
 def update_label(stamp, newLabel):
+    if newLabel == "" or len(newLabel) == 0:
+        newLabel = None 
     query = {'stamp':stamp}
     print('Before: ',vid_col.find_one({'stamp': stamp}))
     vid_col.update_one(query, {'$set':{'tags':newLabel}})
@@ -99,8 +103,8 @@ def get_testdrive_info(testdrive):
     dic['Date'] = info.loc[testdrive]['date']
     dic['Time'] = info.loc[testdrive]['time']
     dic['Duration'] = info.loc[testdrive]['duration']
-    dic['Distance'] = str(int(info.loc[testdrive]['mileages']))+ 'm'
-    dic['Auto%'] = str(info.loc[testdrive]['p_auto']) + '%'
+    dic['Distance(m)'] = str(int(info.loc[testdrive]['mileages']))
+    dic['Auto%'] = str(info.loc[testdrive]['p_auto'])
     # print(dic)
     return dic
 

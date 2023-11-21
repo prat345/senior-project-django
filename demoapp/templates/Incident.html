@@ -3,9 +3,6 @@
 {% block title %}
     <title>Incident Query</title>
     <style>
-        h1{
-            padding-left: 20px;
-        }
         th, td{
         border: 5px solid rgb(237, 236, 236);
         border-collapse: collapse;
@@ -21,6 +18,7 @@
         .label-table{
             overflow-x: scroll;
         }
+        /* video */
         .block-vid > iframe{
             border-radius: 10px 0 0 10px;
         }
@@ -36,6 +34,7 @@
             padding: 0;
             margin: 0;
         }
+        /* label inside vid block */
         ul.incident-text > li{
             margin-right: 1em;
             margin-bottom: 0.2em;
@@ -45,14 +44,36 @@
         }
         ul.incident-text > li:last-child .btn-label {
             background-color: #dddddd;
-            padding: 3px 7px;
-            font-size: 12px;
-            margin: 0;
+            padding: 2px 7px;
             color: #808080;
             border: 1px solid #e2e2e2;
-            border-radius: 10px;
-            margin-left: 5px;
+            border-radius: 7px;
+            display: inline-block;
+            margin: 2px 2px;
         }
+        .offcanvas{
+            width:40% !important;
+        }  
+        label span {
+        display: inline-block;
+        padding: 3px 10px;
+        margin: 5px 0px;
+        border-radius: 8px;
+        border: 1px solid #e2e2e2;
+        color: #808080;
+        background-color: #dddddd;
+        }
+        .label:checked + span{
+        background-color: var(--green);
+        color: rgb(255, 255, 255);
+        font-style: bold;
+        }
+        .label:hover + span{
+        background-color: var(--green);
+        transition-duration: 0.5s;
+        color: white;
+        }
+
         /* vid-block 100% width */
         @media (max-width:992px){
             ul.incident-text{
@@ -61,36 +82,27 @@
             .block-vid > iframe{
                 border-radius: 10px 10px 0 0;
             }
+            .offcanvas{
+                width:100% !important;
+            }  
         }
-        @media (max-width:800px){
-            .container-xl{
-                padding:0 !important;
-            }
-            /* only show label */
-            ul.incident-text > li:not(:last-child){
-                display: none;
-            }
-        }
-        @media (max-width:450px){
-            /* .block{
-                padding-left:5px;
-                padding-right: 5px;
-            } */
+
+        @media (max-width:576px){
             .block-text{
                 padding: 5px 20px;
             }
-        }
-        @media(max-width:800px){
-            .content-container{
-                padding-left: 0;
-                padding-right: 0;
+            ul.incident-text > li:not(:last-child){
+                display: none;
+            }
+            *{
+                font-size: 0.8rem;
             }
         }
     </style>
 {% endblock %}
 
 {% block content %}
-        <div class="container-fluid content-container" >
+        <div class="container-lg" >
             <h1>Incident Query</h1>
             <!-- messages -->
             {% if messages %}
@@ -100,10 +112,129 @@
                     </div>
                 {% endfor %}
             {% endif %}
-            <!-- Label Table -->
-        
-            <div class="containter-fluid content-container">
-                <form action="" method="POST">
+
+            <!-- Offcanvas -->          
+            <div 
+                class="offcanvas offcanvas-start"  
+                data-bs-scroll="true" 
+                data-bs-backdrop="true" 
+                tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+                <div class="offcanvas-header">
+                    <h4 class="offcanvas-title">Labels</h4>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="label-table">
+                            <!-- Top level -->
+                            <div class="mb-2">
+                                <h5>Factor</h5>
+                                <div>
+                                {% if 'External' in selected %}
+                                    <label>
+                                        <input class="label" type="checkbox" name="label" value="External" onclick="recordLabel(this.value)" checked>
+                                        <span>External</span>
+                                    </label>
+                                {% else %}
+                                    <label>
+                                        <input class="label" type="checkbox" name="label" value="External" onclick="recordLabel(this.value)">
+                                        <span>External</span>
+                                    </label>
+                                {% endif %}
+
+                                {% if 'Internal' in selected %}
+                                    <label>
+                                        <input class="label" type="checkbox" name="label" value="Internal" onclick="recordLabel(this.value)" checked>
+                                        <span>Internal</span>
+                                    </label>
+                                {% else %}
+                                    <label>
+                                        <input class="label" type="checkbox" name="label" value="Internal" onclick="recordLabel(this.value)">
+                                        <span>Internal</span>
+                                    </label>
+                                {% endif %}
+                                </div>
+                            </div>
+
+                            {% for topic,arr in labels.items %}
+                            <div class="mb-2">
+                                <h5>{{topic}}</h5>
+                                <div>
+                                <!-- 3rd level -->
+                                {% for label in arr %} 
+                                    {% if label in selected %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="{{label}}"
+                                                onclick="recordLabel(this.value)" checked>
+                                                <span>{{label}}</span>
+                                        </label>
+                                    {% else %}
+                                        <label>
+                                            <input class="label" type="checkbox" name="label" value="{{label}}" onclick="recordLabel(this.value)">
+                                            <span>{{label}}</span>
+                                        </label>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            <div class="mb-2">
+                                <h5>No label</h5>
+                                <div>
+                                    {% if "" in selected %}
+                                    <label>
+                                        <input class="label" type="checkbox" name="label" value="" onclick="recordLabel(this.value)" checked>
+                                        <span>No Label</span>
+                                    </label>
+                                    {% else %}
+                                    <label>
+                                        <input class="label" type="checkbox" name="label" value="" onclick="recordLabel(this.value)">
+                                        <span>No Label</span>
+                                    </label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <div>
+                                <span>Operation :&nbsp;</span>
+                                <!-- default AND -->
+                                {% if operation == 'OR' %}
+                                    <input class="form-check-input" type="radio" id="and" name="operation"
+                                            value="AND" onclick="recordOperation(this.value)">
+                                    <label for="and">And&nbsp;</label>
+            
+                                    <input class="form-check-input" type="radio" id="or" name="operation"
+                                            value="OR" onclick="recordOperation(this.value)" checked>
+                                    <label for="and">Or</label>
+                                {% else %} 
+                                    <input class="form-check-input" type="radio" id="and" name="operation"
+                                            value="AND" onclick="recordOperation(this.value)" checked>
+                                    <label for="and">And&nbsp;</label>
+            
+                                    <input class="form-check-input" type="radio" id="or" name="operation"
+                                            value="OR" onclick="recordOperation(this.value)">
+                                    <label for="and">Or</label>
+                                {% endif %}
+                            </div>
+                            <!-- SUBMIT -->
+                            <div style="margin-top: 5px; margin-bottom: 20px; margin-left: 5x;">
+                                <!-- <button type="submit">Submit</button>  -->
+                                <button type="button" class="btn btn-primary" onclick ="changeUrl()">Submit</button> 
+                                <a href="/incident" class="btn btn-primary">Clear</a>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+              
+            <div class="containter-fluid">
+                <!-- Label Table -->
+                <!-- <form action="" method="POST">
                     {% csrf_token %}
                     <div class="label-table">
                         <table class="table table-light" border="1" cellpadding="10">
@@ -136,7 +267,6 @@
                                 </th>
                             </thead>
                             <tbody  align="left" valign="top">
-                                <!-- tr=row td=col -->
                                 <tr> 
                                     {% for topic,arr in labels.items %}
                                         <td class="sub-topic">
@@ -196,7 +326,6 @@
                     <div class="container-xl">
                         <div style="margin: 5px 0; margin-left: 5px;">
                             <span>Operation :&nbsp;</span>
-                            <!-- default AND -->
                             {% if operation == 'OR' %}
                                 <input class="form-check-input" type="radio" id="and" name="operation"
                                         value="AND" onclick="recordOperation(this.value)">
@@ -215,22 +344,23 @@
                                 <label for="and">Or</label>
                             {% endif %}
                         </div>
-                        <!-- SUBMIT -->
+
                         <div style="margin-top: 5px; margin-bottom: 20px; margin-left: 5x;">
-                            <!-- <button type="submit">Submit</button>  -->
-                            <button type="button" onclick ="changeUrl()">Submit</button> 
-                            <a href="/incident" class="button">Clear</a>
+                            <button type="button" class="btn btn-primary" onclick ="changeUrl()">Submit</button> 
+                            <a href="/incident" class="btn btn-secondary" class="button">Clear</a>
                         </div>
                     </div>
-                    
-                </form>
-                
-                <div class="container-xl">
-                    <hr>
-                    <!-- Display Query -->
-                    <div style="margin-left: 5px;">
-                        <p>Selected({{ operation }}): {{ selected|join:', ' }}</p>
-                        <p>{{ query|length }} results</p>
+                </form> -->
+
+                <!-- VIDEO -->
+                <div class="container-fluid p-0">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" aria-controls="offcanvasExample">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Filter
+                    </button>
+                    <div class="mb-2 d-flex flex-wrap pe-3">
+                        <div class="me-2">Selected({{ operation }}): [ {{ selected|join:', ' }} ]</div>
+                        <div>{{ query|length }} results </div>
                     </div>
                     
                     <!-- <p>{{ query }}</p> -->
@@ -276,12 +406,15 @@
                                             {% endfor %}
                                         </li>
                                     </ul>
-                                    <p class="btn-container">
-                                        <a href="/edit/{{incident.stamp}}" class="button" id="edit-button" style="margin-left: 0;">edit</a>
-                                        <a href="/delete/{{incident.stamp}}" class="button" id="delete-button"
-                                            onclick="return confirm('Confirm deletion')"
-                                            >delete</a>
-                                    </p>
+                                    <div class="btn-container mb-2">
+                                        <a href="/edit/{{incident.stamp}}" class="btn btn-warning" id="edit-button">
+                                            <i class="fa-solid fa-pen"></i>
+                                            edit</a>
+                                        <a href="/delete/{{incident.stamp}}" class="btn btn-danger" id="delete-button"
+                                            onclick="return confirm('Confirm deletion')">
+                                            <i class="fa-solid fa-trash"></i>
+                                            delete</a>
+                                    </div>
                                 </div>
                             </div>
         

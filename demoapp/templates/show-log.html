@@ -36,8 +36,9 @@
 {% block content %}
     <div class="container-xl">
 
-            <h1>Test Log</h1>
-            <a class="button" style="margin-bottom: 10px;" href="/new-log">New Log</a>
+            <h1 class="mb-3">Test Log</h1>
+            <a class="btn btn-primary mb-3" href="/log/new">
+                New Log</a>
             
             {% if messages %}
             {% for message in messages %}
@@ -76,10 +77,14 @@
                             <td><span class="value">{{ log.label }}</span></td>
                             <td><span class="value">{{ log.note }}</span></td>
                             <td class="btn-col">
-                                <a href="edit-log/{{log.id}}" class="button">edit</a>
-                                <a href="delete-log/{{log.id}}" class="button"
+                                <a href="/log/edit/{{log.id}}" class="btn btn-warning">
+                                    <i class="fa-solid fa-pen"></i>
+                                    edit</a>
+                                <a href="/log/delete/{{log.id}}" class="btn btn-danger"
                                 onclick="return confirm('Confirm Deletion')"
-                                >delete</a>
+                                >
+                                <i class="fa-solid fa-trash"></i>
+                                delete</a>
                             </td>
                         </tr>
                         {% endfor %}

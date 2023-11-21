@@ -7,41 +7,18 @@
             padding: 0;
             list-style-position: inside;
         }
-        .background{
-            font-style: italic;
-        }
-
     </style>
 {% endblock %}
 
 {% block content %}
 <div class="container-lg">
-    <h1>About</h1>
-    <div class="background container-fluid" style="text-align: justify; padding: 10px 50px 0px 30px;">
-        <p>Part of Final Project, Development of Incident Database System of Autonomous Vehicle Testing</p>
-        <p>
-            The Faculty of Engineering of Chulalongkorn University is aware of the future mobility trends
-            and has been researching on the development of autonomous vehicles in campus.
-            As the project is still in the development stages, the vehicles still need to be tested
-            in various aspects such as navigation,ride comfort and incident scenario.
-        </p>
-        <p>
-            At present, the research team had to manually identify incidents and 
-            extract relevant information for further study which is both labor-intensive and time-consuming. 
-            Thus, this project proposes the implementation of an algorithm that identifies and extracts incident 
-            data from recorded test drives which will help increase efficiency while reducing manual workload. 
-            With the incident data, the research teams will be able to make more improvements and accelerate the 
-            development process. Ultimately moving towards safer, efficient, and reliable transportation for the 
-            community.
-        </p>
-    </div>
-
-    <br>
+    <h1 class="mb-3">About</h1>
     <ul><h5>Applications</h5>
         <li>Provide an interactive dashboard summarizing test drive data from database</li>
         <li>Query and display test drive data including vehicle parameters and incident occurences</li>
         <li>Query Incidents from labels which are based on their causes, display video from google drive, allow *RUD operations on labels and provide pagination for long query results</li>
         <li>Test log for recording additional information about incident which developers can refer to when labeling incident. Allow CRUD operations and pagination</li>
+        <li>Responsive web design</li>
     </ul>
 
     <ul><h5>Tools</h5>
@@ -49,5 +26,6 @@
         <li>Framework: Django</li>
         <li>Visualizations: Ploty</li>
     </ul>
+
 </div>   
 {% endblock %}

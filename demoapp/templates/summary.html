@@ -3,20 +3,18 @@
 {% block title %}
     <title>Summary</title>
     <style>
-        .box-top > h5, h5{
-            font-size: calc(0.5vw + 1em);
-        }
+        /* .box-top > h5, h5{
+            font-size: 1.2rem;
+        } */
         .box-top > p{
-            font-size: calc(1.25vw + 1em);
+            margin: 5px 0;
+            font-size: 2rem;
             text-align: center;
             color: rgb(13, 246, 16);
         }
         .box-model span{
             color: rgb(255, 111, 0);
             /* font-size: calc(0.75vw + 0.5em); */
-        }
-        .box-model > *{
-            font-size: calc(0.25vw + 0.75em);
         }
         
         /* .box,.box-top{
@@ -27,58 +25,71 @@
         box-shadow: 5px 5px 5px rgb(166, 166, 166);
         } */
         [class|=col]{
-            /* margin:5px !important; */
             padding: 7px !important;
         }
-        @media(max-width:800px){
-            .content-container{
-                padding-left: 0;
-                padding-right: 0;
+        @media(max-width:992px){
+            .box-top > h5, h5{
+                font-size: 1.2rem;
+            }
+            .box-top > p{
+                font-size: 1.5rem;
             }
         }
+        @media(max-width:576px){
+            .box-top > h5, h5{
+                font-size: 0.8rem;
+            }
+            [class|=col]{
+                padding: 5px !important;
+            }
+            * { 
+                font-size: 0.8rem;
+            }
+        }
+
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid content-container">
-        <h1 style="margin-left: 10px;">Summary</h1>     
+    <div class="container-xl">
         <div class="container-fluid">
+            <h1>Summary</h1>     
             <div class="row">
-                <div class="col-4 col-lg-2 align-self-center">
-                    <div class="box-top col-md-12">
+                <div class="col-4 col-lg-2">
+                    <div class="box-top col-md-12 h-100">
                         <h5>Test drive</h5>
-                        <p>20 tests</p>
+                        <p>20</p>
                     </div>
                 </div>
-                <div class="col-4 col-lg-2 align-self-center">
-                    <div class="box-top col-md-12">
-                        <h5>Mileages</h5>
-                        <p>12,970 m</p>
+                <div class="col-4 col-lg-2">
+                    <div class="box-top col-md-12 h-100">
+                        <h5>Mileages(m)</h5>
+                        <p>12,970</p>
                     </div>
                 </div>
-                <div class="col-4 col-lg-2 align-self-center">
-                    <div class="box-top col-md-12">
-                        <h5>Auto%</h5>
-                        <p>80.5% avg</p>
+                <div class="col-4 col-lg-2">
+                    <div class="box-top col-md-12 h-100">
+                        <h5>Auto%(avg)</h5>
+                        <p>80.5</p>
                     </div>
                 </div>
-                <div class="col-4 col-lg-2 align-self-center">
-                    <div class="box-top col-md-12">
+                <div class="col-4 col-lg-2">
+                    <div class="box-top col-md-12 h-100">
                         <h5>Incident</h5>
-                        <p>12 records</p>
+                        <p>12</p>
                     </div>
                 </div>
-                <div class="col-8 col-lg-4 align-self-center">
-                    <div class="box-top col-md-12">
+                <div class="col-8 col-lg-4">
+                    <div class="box-top col-md-12 h-100">
                         <h5>Model</h5>
-                        <div class="row justify-content-center" style="text-align: center; margin-bottom: 1em;">
+                        <div class="row justify-content-center my-auto">
                             <div class="box-model col-6 col-sm-4 col-lg-6">
-                                <div>Condition 1</div>
-                                <div>Precision <span>0.50</span>&nbsp;&nbsp;Recall <span>0.17</span></div>
+                                <div class="text-center"><i>Condition 1</i></div>
+                                <div>P: <span>0.50</span>&nbsp;&nbsp;R: <span>0.17</span></div>
                             </div>
                             <div class="box-model col-6 col-sm-4 col-lg-6">
-                                <div>Condition 2</div>
-                                <div>Precision <span>0.43</span>&nbsp;&nbsp;Recall <span>0.83</span></div>
+                                <div class="text-center"><i>Condition 2</i></div>
+                                <div>P: <span>0.43</span>&nbsp;&nbsp;R: <span>0.83</span></div>
                             </div>
                         </div>
                     </div>

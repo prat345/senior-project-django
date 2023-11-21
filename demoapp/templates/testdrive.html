@@ -20,7 +20,6 @@
             box-shadow: 5px 5px 5px rgb(166, 166, 166);
         } */
         [class|=col]{
-            /* margin:5px !important; */
             padding: 7px !important;
         }
         select{
@@ -31,67 +30,94 @@
             padding: 5px 3px;
             border-radius: 5px;
         }
-        .top .box > h5, h5{
-            font-size: calc(0.5vw + 1em);
-        }
-        .top .box > p{
-            font-size: calc(1.25vw + 1em);
+        /* .top .box > h5, h5 {
+            font-size: 1.2rem;
+        } */
+        .top .box > p {
+            margin: 5px 0;
+            font-size: 2rem;
             text-align: center;
             color: rgb(13, 246, 16);
         }
-        .row:last-child .box{
-            overflow-x:scroll;
-        }
-        form {
-            display: inline;
-            margin-right: 10px;
-        }
-        @media(max-width:800px) {
-            .content-container{
-                padding-left: 0;
-                padding-right: 0;
+
+        @media(max-width:992px){
+            .box-top > h5, h5{
+                font-size: 1.2rem;
+            }
+            .top .box > p {
+                font-size: 1.5rem;
             }
         }
-        /* @media(max-width:500px) {
-            .row:last-child .box{
-                overflow-x:scroll;
-                aspect-ratio: 1.5;
+        @media(max-width:576px){
+            .box-top > h5, h5{
+                font-size: 0.8rem;
             }
-        } */
+            .top .box > p {
+                font-size: 1.2rem;
+            }
+            [class|=col]{
+                padding: 5px !important;
+            }
+        }
     </style>
 {% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <h1>{{ selected_test }}</h1>
-        <div class="container-fluid" style="margin-top: 20px; margin-bottom: 5px;">
-            <!-- DROPDOWN -->
-            <form name=selectTestdrive action="" method=POST id="dropdown">
-                {% csrf_token %}
-                <!-- add testdrive to url when selected dropdown-->
-                <select class="custom-select" id="select-test" name=testdrive onchange="document.location.href='/testdrive/'+ this.value"> 
-                {% for testdrive in collections %}
-                    {% if testdrive == selected_test %}
-                        <option value="{{testdrive}}" selected>{{testdrive}}</option>
-                    {% else %}
-                        <option value="{{testdrive}}">{{testdrive}}</option>
-                    {% endif %}
-                {% endfor %}
-                </select>
-            </form>
-
-            <!-- DOWNLOAD CSV -->
-            <form action="" method="post" id="download-csv">
-                {% csrf_token %}
-                <button type="submit" name="download-csv">Download CSV</button>
-            </form>
+    <div class="container-xl">
+        <h1>Test Drive</h1>
+        <div class="mt-2 d-flex flex-wrap justify-content-between">
+            <div class="my-auto overflow-x-scroll">
+                <div style="min-width: 300px;">
+                    Selected: {{ selected_test }}
+                </div>
+            </div>
+            <div class="d-flex flex-wrap justify-space-between">
+                <!-- DROPDOWN -->
+                <!-- <form name=selectTestdrive action="" method=POST id="dropdown">
+                    {% csrf_token %}
+                    <select class="custom-select" id="select-test" name=testdrive onchange="document.location.href='/testdrive/'+ this.value"> 
+                    {% for testdrive in collections %}
+                        {% if testdrive == selected_test %}
+                            <option value="{{testdrive}}" selected>{{testdrive}}</option>
+                        {% else %}
+                            <option value="{{testdrive}}">{{testdrive}}</option>
+                        {% endif %}
+                    {% endfor %}
+                    </select>
+                </form> -->
+    
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select Test
+                    </button>
+                    <div class="dropdown-menu">
+                    {% for testdrive in collections %}
+                        {% if testdrive == selected_test %}
+                            <a class="dropdown-item active" href="/testdrive/{{ testdrive }}">{{ testdrive }}</a>
+                        {% else %}
+                            <a class="dropdown-item" href="/testdrive/{{ testdrive }}">{{ testdrive }}</a>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                </div>
+    
+                <!-- DOWNLOAD CSV -->
+                <div>
+                    <form action="" method="post" id="download-csv">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary" name="download-csv">
+                            <i class="fa-solid fa-file-arrow-down"></i>
+                            Download CSV</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
-        <div class="container-fluid content-container">
+        <div>
             <div class="row top">
                 {% for k,v in stats.items %}
                 <div class="col-6 col-md-4 col-lg-2">
-                    <div class="box col-md-12">
+                    <div class="box col-md-12 h-100">
                         <h5>{{k}}</h5>
                         <p>{{v}}</p>
                     </div>
@@ -101,13 +127,13 @@
     
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="box col-md-12">
+                    <div class="box col-md-12 h-100">
                         <h5>Acceleration(Longitudinal)</h5>
                         {{ charts.chart2|safe }}
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="box col-md-12">
+                    <div class="box col-md-12 h-100">
                         <h5>Brake Input</h5>
                         {{ charts.chart3|safe }}
                     </div>
@@ -116,13 +142,13 @@
     
             <div class="row">
                 <div class="col-12 col-md-6">
-                    <div class="box col-md-12">
+                    <div class="box col-md-12 h-100">
                         <h5>Velocity(Longitudinal)</h5>
                         {{ charts.chart1|safe }}
                     </div>
                 </div>
                 <div class="col-12 col-md-6">
-                    <div class="box col-md-12">
+                    <div class="box col-md-12 h-100">
                         <h5>Drive Mode</h5>
                         {{ charts.chart4|safe }}
                     </div>
@@ -131,13 +157,13 @@
             
             <div class="row justify-content-center" style="position: relative;">
                 <div class="col-12 col-lg-9">
-                    <div class="box col-md-12">
+                    <div class="box col-md-12 h-100">
                         <h5>Incident Location</h5>
                         {{ waypoint|safe }}
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
 
         <script>
             console.log('T: ','{{ loadTime }}');

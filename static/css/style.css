@@ -7,9 +7,9 @@
 *{
   box-sizing: border-box;
 }
-.navbar{
+/* .navbar{
   background-color: var(--green);
-}
+} */
 h1{
   color: var(--green);
 }
@@ -17,7 +17,7 @@ body{
   background-color: var(--grey);
   margin: 0;
 }
-.button, button{
+/* .button, button{
   border: none;
   background-color: var(--green);
   color: rgb(255, 255, 255);
@@ -32,12 +32,8 @@ body{
   background-color: var(--dgreen);
   transition-duration: 0.5s;
   color: white;
-}
-.label:hover + span{
-  background-color: var(--green);
-  transition-duration: 0.5s;
-  color: white;
-}
+} */
+
 .box,.box-top{
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -72,14 +68,15 @@ span.header{
   color: var(--orange);
   font-weight: bold;
 }
+/* labels */
 label input[type="checkbox"] {
   display: none;
 }
 label span {
   display: inline-block;
-  padding: 5px 15px;
+  padding: 3px 10px;
   margin: 5px 0px;
-  border-radius: 13px;
+  border-radius: 8px;
   border: 1px solid #e2e2e2;
   color: #808080;
   background-color: #dddddd;
@@ -88,7 +85,11 @@ label span {
   background-color: var(--green);
   color: rgb(255, 255, 255);
   font-style: bold;
-  font-size: 1.1em;
+}
+.label:hover + span{
+  background-color: var(--green);
+  transition-duration: 0.5s;
+  color: white;
 }
 .pagination > li > a
 {
@@ -112,8 +113,17 @@ label span {
   border: 1px solid var(--green);
 }
 
-/* @media (max-width:992px){
-  .main-col{
-      width: 100%;
+/* lg >= 992 */
+@media (max-width:992px){
+  * {
+    font-size: 0.9rem;
+    color: red;
   }
-} */
+}
+/* md >= 768 */
+@media (max-width:768px){
+  * {
+    font-size: 0.8rem;
+    color: blue;
+  }
+}

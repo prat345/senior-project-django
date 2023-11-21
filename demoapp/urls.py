@@ -13,9 +13,9 @@ urlpatterns = [
     # path('incident/<select_operation>/<selected>',views.incident2),
     path('edit/<to_edit>',views.edit),
     path('delete/<to_delete>',views.delete),
-    path('new-log',views.driver_input),
-    path('show-log',views.show_log),
-    path('edit-log/<log_id>',views.edit_log),
-    path('delete-log/<log_id>',views.delete_log),
+    path('log/new',views.driver_input),
+    path('log/show',views.show_log),
+    path('log/edit/<log_id>',views.edit_log),
+    path('log/delete/<log_id>',views.delete_log),
     path('test',views.test),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
