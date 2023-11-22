@@ -12,10 +12,15 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os 
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(BASE_DIR / ".env")
+MONGO_URI = os.getenv('MONGO_URI')
+ACCOUNT = os.getenv('ACCOUNT')
+PASSWORD = os.getenv('PASSWORD')
+# print(MONGO_URI, ACCOUNT, PASSWORD)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -92,9 +97,9 @@ DATABASES = {
            'ENGINE': 'djongo',
            'NAME': 'Information',
            'CLIENT':{
-               'host':'mongodb+srv://kopkap:kopkap123@cluster0.agjmc4n.mongodb.net/?retryWrites=true&w=majority',
-               'username':'kopkap',
-               'password':'kopkap123',
+               'host':MONGO_URI,
+               'username':ACCOUNT,
+               'password':PASSWORD,
            }
        }
    }

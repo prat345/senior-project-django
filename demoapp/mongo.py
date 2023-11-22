@@ -2,10 +2,15 @@ import pymongo
 from pymongo import MongoClient
 import pandas as pd
 import os
+from dotenv import load_dotenv
+from pathlib import Path
 
-connect = 'mongodb+srv://kopkap:kopkap123@cluster0.agjmc4n.mongodb.net/?retryWrites=true&w=majority' # Atlas
-# connect = 'mongodb://localhost:27017' # Compass 
-cluster = MongoClient(connect)
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
+MONGO_URI = os.getenv("MONGO_URI") # Atlas
+# print(MONGO_URI)
+# MONGO_URI = 'mongodb://localhost:27017' # Compass 
+cluster = MongoClient(MONGO_URI)
 db = cluster["Testdrive"]
 db2 = cluster["Information"]
 db3 = cluster['video']
