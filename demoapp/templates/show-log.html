@@ -2,42 +2,14 @@
 
 {% block title %}
     <title>Test Log</title>
-    <style>
-        th{
-            font-size: 1.2rem;
-        }
-        tr{
-            font-size: 1rem;
-        }
-        .log-table{
-            overflow-x: scroll;
-        }
-        @media (max-width:800px){
-            tbody > tr > td:nth-child(n+1):nth-child(-n+2),
-            thead > tr > th:nth-child(n+1):nth-child(-n+2),
-            tbody > tr > td:nth-child(n+5):nth-child(-n+7),
-            thead > tr > th:nth-child(n+5):nth-child(-n+7) {
-                display: none;
-            }
-            .container-xl{
-                padding-left: 0px;
-                padding-right: 0px;
-            }
-            th{
-            font-size: 1rem;
-            }
-            tr{
-                font-size: 0.75rem;
-            }
-        }
-    </style>
+
 {% endblock %}
 
 {% block content %}
-    <div class="container-xl">
+    <div class="container-lg">
 
             <h1 class="mb-3">Test Log</h1>
-            <a class="btn btn-primary mb-3" href="/log/new">
+            <a class="btn btn-outline-success mb-3" href="/log/new">
                 New Log</a>
             
             {% if messages %}
@@ -77,10 +49,10 @@
                             <td><span class="value">{{ log.label }}</span></td>
                             <td><span class="value">{{ log.note }}</span></td>
                             <td class="btn-col">
-                                <a href="/log/edit/{{log.id}}" class="btn btn-warning">
+                                <a href="/log/edit/{{log.id}}" class="btn btn-dark">
                                     <i class="fa-solid fa-pen"></i>
                                     edit</a>
-                                <a href="/log/delete/{{log.id}}" class="btn btn-danger"
+                                <a href="/log/delete/{{log.id}}" class="btn btn-outline-danger"
                                 onclick="return confirm('Confirm Deletion')"
                                 >
                                 <i class="fa-solid fa-trash"></i>

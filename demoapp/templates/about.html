@@ -2,30 +2,34 @@
 
 {% block title %}
     <title>About</title>
-    <style>
-        ul{
-            padding: 0;
-            list-style-position: inside;
-        }
-    </style>
 {% endblock %}
 
 {% block content %}
-<div class="container-lg">
-    <h1 class="mb-3">About</h1>
-    <ul><h5>Applications</h5>
-        <li>Provide an interactive dashboard summarizing test drive data from database</li>
-        <li>Query and display test drive data including vehicle parameters and incident occurences</li>
-        <li>Query Incidents from labels which are based on their causes, display video from google drive, allow *RUD operations on labels and provide pagination for long query results</li>
-        <li>Test log for recording additional information about incident which developers can refer to when labeling incident. Allow CRUD operations and pagination</li>
-        <li>Responsive web design</li>
-    </ul>
-
-    <ul><h5>Tools</h5>
-        <li>Database: MongoDB Atlas (PyMongo&Djongo)</li>
-        <li>Framework: Django</li>
-        <li>Visualizations: Ploty</li>
-    </ul>
+<div class="container-md">
+    <h1 class="mb-3">Autonomous Vehicle testing Dashboard</h1>
+    <div class="about-container">
+        <h5>Features</h5>
+        <ul>
+            <li>Interactive dashboard summarizing all vehicle test drive data from database</li>
+            <li>Individual test dashboard displaying incident occurences respect to vehicle parameters
+                (e.g acceleration, brake input, drive mode etc.) and the map of the location. 
+                User can get each test data by downloading CSV file</li>
+            <li>Query incident videos which are stored on drive. Incidents are catagorized with labels 
+                related to the cause and are divided into subcategories. User can select multiple labels 
+                with and/or condition. Allow *RUD operations on labels</li>
+            <li>Test log form for recording additional information about incident during vehicle testing.
+                Allow CRUD operations on logs</li>
+            <li>Responsive web design and provide pagination</li>
+        </ul>
+    
+        <h5>Tools</h5>
+        <ul>
+            <li>Database: MongoDB Atlas (Pymongo & Djongo)</li>
+            <li>Framework: Django</li>
+            <li>Visualizations: Ploty</li>
+            <li>HTML, CSS, Bootstrap</li>
+        </ul>
+    </div>
 
 </div>   
 {% endblock %}

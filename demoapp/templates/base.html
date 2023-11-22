@@ -16,15 +16,13 @@
           color: white;
           font-size: 1rem;
         }
-        .nav-pills .active-nav {
-          background-color: rgb(237, 236, 236) !important;
-        }
         .nav-pills .active-nav .nav-link {
-          color: black;
+          background-color: rgb(87, 87, 87) !important;
         }
         .nav-pills .nav-link {
-          padding: 5vh 15px;
+          padding: 20px 15px;
           color: white;
+          border-radius: 0;
         }
         .nav-pills div:hover {
           background-color: rgb(87, 87, 87);
@@ -45,13 +43,13 @@
 
         @media(max-width:992px){
           .nav-vertical {
-            width: 40px;
+            width: 30px;
           }
           .container-page {
-            padding-left: 40px;
+            padding-left: 30px;
           }
           .nav-pills .nav-link {
-            padding: 5vh 10px;
+            padding: 30px 6px;
           }
           .nav-pills .nav-link > span{
             display: none;
@@ -65,59 +63,24 @@
 
 <body>
   <div>
-
-    <!-- <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">Home</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/summary">Summary</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/testdrive">Testdrive</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" target="_blank" href="/incident">Incident</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  TestLog
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="/new-log">New Log</a></li>
-                  <li><a class="dropdown-item" href="/show-log">Show Log</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/about">About</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav> -->
-
       <div class="nav-vertical vh-100 position-fixed">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <div class="nav-container">
             <a class="nav-link" href="/">
                 <i class="fa-solid fa-house"></i>
-                <span>Home</span>
+                <span>Dashboard</span>
             </a>
           </div>
-          <div class="nav-container">
+          <!-- <div class="nav-container">
             <a class="nav-link" href="/summary">
               <i class="fa-solid fa-chart-line"></i>
               <span>Dashboard</span>
             </a>
-          </div>
+          </div> -->
           <div class="nav-container">
             <a class="nav-link" href="/testdrive" role="tab">
-              <i class="fa-solid fa-bus-simple"></i>
-              <span>Each Test</span>
+              <i class="fa-solid fa-chart-line"></i>
+              <span>Test drive</span>
             </a>
           </div>
           <div class="nav-container">
@@ -129,7 +92,7 @@
           <div class="dropend nav-container">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
               <i class="fa-solid fa-file-lines"></i>
-              <span>Log</span>
+              <span>Logger</span>
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/log/new">New Log</a></li>
@@ -163,11 +126,6 @@
               div.classList.add("active-nav");
         }
       })
-      // document.querySelectorAll(".nav-link").forEach((link) => {
-      //     if (link.href === window.location.href) {
-      //         link.parentElement.classList.add("active-nav");
-      //     }
-      // });
 
     </script>
     </div>

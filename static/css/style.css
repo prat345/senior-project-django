@@ -7,33 +7,29 @@
 *{
   box-sizing: border-box;
 }
-/* .navbar{
-  background-color: var(--green);
-} */
+
+/* BASE ------------------------------------------*/
+/* Button */
+.btn {
+  border-radius: 10px;
+  margin: 0 5px;
+}
+.btn-outline-success {
+  color: var(--green);
+  border-color: var(--green);
+}
+.btn-outline-success:hover {
+  background-color: var(--dgreen);
+}
 h1{
   color: var(--green);
 }
 body{
-  background-color: var(--grey);
+  background-color: #ffffff;
   margin: 0;
 }
-/* .button, button{
-  border: none;
-  background-color: var(--green);
-  color: rgb(255, 255, 255);
-  border-radius: 15px;
-  padding: 5px 15px;
-  margin: 5px;
-  text-align: center;
-  display: inline-block;
-  text-decoration: none;
-}
-.button:hover, button:hover{
-  background-color: var(--dgreen);
-  transition-duration: 0.5s;
-  color: white;
-} */
 
+/* SUMMARY ------------------------------------------*/
 .box,.box-top{
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
@@ -41,7 +37,23 @@ body{
   margin: 0px;
   box-shadow: 3px 3px 8px silver;
 }
-/* Test Log */
+.box-top > p {
+  margin: 5px 0;
+  font-size: 2rem;
+  text-align: center;
+  color: rgb(13, 246, 16);
+}
+.box-model span{
+  color: rgb(255, 111, 0);
+  /* font-size: calc(0.75vw + 0.5em); */
+}
+
+/* TEST DRIVE ------------------------------------------ */
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--green);
+}
+
+/* Test Log ------------------------------------------*/
 span.value{
   color: var(--dgreen);
   font-weight: normal;
@@ -50,7 +62,7 @@ span.header{
   color: var(--orange);
   font-weight: bold;
 }
-/* Incident.html */
+/* INCIDENT VIDEO ------------------------------------------*/
 .block {
   background-color: rgb(255, 255, 255);
   padding: 0 10px;
@@ -58,17 +70,76 @@ span.header{
   border-radius: 10px;
   box-shadow: 3px 3px 5px silver;
 }
-.sub-topic{
-  font-size: 1.2rem;
+/* table labels */
+.label-table th, .label-table td{
+  border: 1px solid var(--green);
+  border-collapse: collapse;
+  text-align: center;
+  font-weight: normal;
 }
-.sub-topic-2{
-  font-size: 0.9rem;
+.label-table th{
+  font-size: 1.5rem;
 }
-.topic{
+.block{
+    box-shadow: 3px 3px 5px silver;
+}
+.label-table{
+    overflow-x: scroll;
+}
+/* video block */
+.block-vid > iframe{
+  border-radius: 10px 0 0 10px;
+}
+.block-text {
+  padding-top: 10px;
+  padding-left: 25px;
+}
+ul.incident-text{
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+}
+.incident-info .btn-label, .btn-label {
+  background-color: #dddddd;
+  padding: 1px 7px;
+  color: #808080;
+  border: 1px solid #e2e2e2;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 2px 1px;
+  font-size: 0.7rem;
+}
+.offcanvas{
+  width:40% !important;
+} 
+/* label filter */
+label span {
+  display: inline-block;
+  padding: 3px 10px;
+  margin: 5px 0px;
+  border-radius: 8px;
+  border: 1px solid #e2e2e2;
+  color: #808080;
+  background-color: #dddddd;
+}
+.label:checked + span{
+  background-color: var(--green);
+  color: rgb(255, 255, 255);
+  font-style: bold;
+}
+.label:hover + span{
+  background-color: var(--green);
+  transition-duration: 0.5s;
+  color: white;
+}
+.block-text span.topic{
   color: var(--orange);
   font-weight: bold;
 }
-/* labels */
+/* labels inside vid block*/
 label input[type="checkbox"] {
   display: none;
 }
@@ -91,12 +162,12 @@ label span {
   transition-duration: 0.5s;
   color: white;
 }
+/* pagination */
 .pagination > li > a
 {
   background-color: white;
   color: var(--green);
 }
-
 .pagination > li > a:focus,
 .pagination > li > a:hover,
 .pagination > li > span:focus,
@@ -113,17 +184,85 @@ label span {
   border: 1px solid var(--green);
 }
 
+/* SHOW LOG ---------------------------------------------  */
+.log-table th{
+  font-size: 1.2rem;
+}
+.log-table tr{
+  font-size: 1rem;
+}
+.log-table{
+  overflow-x: scroll;
+}
+
+/* ABOUT ------------------------------------------------ */
+.log-table tbody > tr > td:nth-child(n+1):nth-child(-n+2),
+.log-table thead > tr > th:nth-child(n+1):nth-child(-n+2),
+.log-table tbody > tr > td:nth-child(n+5):nth-child(-n+7),
+.log-table thead > tr > th:nth-child(n+5):nth-child(-n+7) {
+  display: none;
+}
+.log-table th{
+  font-size: 1rem;
+}
+.log-table tr{
+  font-size: 0.75rem;
+}
+
 /* lg >= 992 */
 @media (max-width:992px){
   * {
     font-size: 0.9rem;
-    color: red;
+  }
+  /* summary */
+  .box-top > h5, h5{
+    font-size: 1.2rem;
+  }
+  .box-top > p{
+    font-size: 1.5rem;
+  }
+  /* incident */
+  ul.incident-text{
+    flex-direction: row;
+  }
+  .block-vid > iframe{
+      border-radius: 10px 10px 0 0;
+  }
+  .offcanvas{
+      width:100% !important;
+  }  
+  /* Show log */
+  .log-table tbody > tr > td:nth-child(n+1):nth-child(-n+2),
+  .log-table thead > tr > th:nth-child(n+1):nth-child(-n+2),
+  .log-table tbody > tr > td:nth-child(n+5):nth-child(-n+7),
+  .log-table thead > tr > th:nth-child(n+5):nth-child(-n+7) {
+    display: none;
+  }
+  .log-table th{
+    font-size: 1rem;
+  }
+  .log-table tr{
+    font-size: 0.75rem;
   }
 }
-/* md >= 768 */
-@media (max-width:768px){
+
+/* sm >= 576 */
+@media(max-width:576px){
   * {
     font-size: 0.8rem;
-    color: blue;
+  }
+  /* summary */
+  .box-top > h5, h5{
+      font-size: 0.8rem;
+  }
+  [class|=col]{
+      padding: 5px !important;
+  }
+  /* incident */
+  .block-text{
+      padding: 5px 20px;
+  }
+  .incident-info div:not(:last-child){
+      display: none;
   }
 }
