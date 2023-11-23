@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib import messages
 from .mongo import get_collection_names, get_data, get_incident, get_stations, get_video, get_all_video, delete_incident, update_label, get_information, get_testdrive_info
@@ -109,6 +110,7 @@ def incident(request):
     request.session['query'] = pickle.dumps(query).hex()
     return render(request, 'incident.html', context)
 
+@login_required # if not > redirect to LOGIN_URL in setting
 def edit(request,to_edit):
     print('TO EDIT: ',to_edit)
     query = request.session.get('query')
@@ -127,7 +129,8 @@ def edit(request,to_edit):
     else:
         # print(edit_info['tags'], type(edit_info['tags']))
         return render(request, 'edit.html', {'to_edit': edit_info})
-
+    
+@login_required
 def delete(request, to_delete):
     print('TO DELETE: ', to_delete)
     delete_incident(to_delete)
@@ -169,6 +172,7 @@ def show_log(request):
     context['log_p'] = log_p
     return render(request, 'show-log.html', context)
 
+@login_required
 def edit_log(request, log_id):
     log = TestLog.objects.get(id=log_id)
     if request.method == 'POST':
@@ -188,6 +192,7 @@ def edit_log(request, log_id):
     else:
         return render(request, 'edit-log.html', {'log':log})
 
+@login_required
 def delete_log(request, log_id):
     log = TestLog.objects.get(id=log_id)
     log.delete()

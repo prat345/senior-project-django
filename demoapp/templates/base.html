@@ -24,7 +24,7 @@
           color: white;
           border-radius: 0;
         }
-        .nav-pills div:hover {
+        .nav-pills div.nav-container:hover {
           background-color: rgb(87, 87, 87);
           transition: 0.2s;
         }
@@ -105,8 +105,37 @@
               <span>About</span>
             </a>          
           </div>
-        </div>
+          <!-- <div  class="nav-container">
+            <a class="nav-link" href="/admin" role="tab">
+              <span>Admin</span>
+            </a>          
+          </div> -->
 
+          <div class=" position-absolute bottom-0 w-100">
+            {% if user.is_authenticated %}
+            <div class="nav-container">
+              <div class="nav-link">
+                <i class="fa-solid fa-user"></i>    
+                <span>{{ user.username }}</span>
+              </div>          
+            </div>
+            <div  class="nav-container">
+              <a class="nav-link" href="/logout/" role="tab">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                <span>Log out</span>
+              </a>          
+            </div>
+            {% else %}
+            <div  class="nav-container">
+              <a class="nav-link" href="/login/" role="tab">
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                <span>Log in</span>
+              </a>          
+            </div>
+            {% endif %}
+          </div>
+
+        </div>
       </div>  
 
       <div class="container-fluid container-page pt-3">
@@ -119,7 +148,7 @@
       container.querySelectorAll('.nav-container').forEach((div) => {
         let link = div.querySelector('.nav-link')
         
-        if (window.location.href.includes('log')){
+        if (window.location.href.includes('log') && !window.location.href.includes('login'))  {
           const navLog = document.querySelector('.dropend')
           navLog.classList.add("active-nav");
         } else if (link.href === window.location.href) {
