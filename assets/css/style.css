@@ -7,27 +7,25 @@
 *{
   box-sizing: border-box;
 }
-
+body{
+  background-color: var(--grey);
+  margin: 0;
+}
 /* BASE ------------------------------------------*/
 /* Button */
 .btn {
   border-radius: 10px;
   margin: 0 5px;
 }
-.btn-outline-success {
-  color: var(--green);
+.btn-success {
+  background-color: var(--green);
   border-color: var(--green);
 }
-.btn-outline-success:hover {
-  background-color: var(--dgreen);
-}
+
 h1{
   color: var(--green);
 }
-body{
-  background-color: #ffffff;
-  margin: 0;
-}
+
 
 /* SUMMARY ------------------------------------------*/
 .box,.box-top{
@@ -193,7 +191,6 @@ span.header{
   color: var(--orange);
   font-weight: bold;
 }
-
 
 /* lg >= 992 */
 @media (max-width:992px){
