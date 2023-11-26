@@ -26,12 +26,13 @@ PASSWORD = os.getenv('PASSWORD')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-#mjn^%re4ps$e-0$59b&b5nr5y=p!1ivalxamqq)1@n=w596fc"
+# SECRET_KEY = "django-insecure-#mjn^%re4ps$e-0$59b&b5nr5y=p!1ivalxamqq)1@n=w596fc"
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG", "True"))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS", '127.0.0.1')]
 
 
 # Application definition
