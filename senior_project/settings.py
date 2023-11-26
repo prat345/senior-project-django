@@ -86,12 +86,7 @@ WSGI_APPLICATION = "senior_project.wsgi.application"
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
-# DATABASES = {
-#        'default': {
-#            'ENGINE': 'djongo',
-#            'NAME': 'dbjango',
-#        }
-#    }
+
 DATABASES = {
        'default': {
            'ENGINE': 'djongo',

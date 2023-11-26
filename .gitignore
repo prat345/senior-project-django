@@ -3,7 +3,7 @@
 
 test.html
 incident0.html
-info.*
+note.*
 
 ### Django ###
 *.log

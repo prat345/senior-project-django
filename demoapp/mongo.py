@@ -10,7 +10,7 @@ load_dotenv(BASE_DIR / ".env")
 MONGO_URI = os.getenv("MONGO_URI") # Atlas
 # print(MONGO_URI)
 # MONGO_URI = 'mongodb://localhost:27017' # Compass 
-cluster = MongoClient(MONGO_URI)
+cluster = MongoClient(MONGO_URI, connectTimeoutMS=30000, socketTimeoutMS=None, connect=False, maxPoolsize=1)
 db = cluster["Testdrive"]
 db2 = cluster["Information"]
 db3 = cluster['video']

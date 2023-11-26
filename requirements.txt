@@ -1,0 +1,7 @@
+django
+pandas
+numpy
+python-dotenv
+djongo
+pymongo
+plotly

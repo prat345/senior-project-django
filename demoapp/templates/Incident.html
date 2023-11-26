@@ -195,7 +195,7 @@
                                         {% endif %}
                                         </div>
                                     </div>
-
+                                    <hr>
                                     {% for topic,arr in labels.items %}
                                     <div class="mb-2">
                                         <h5>{{topic}}</h5>
@@ -218,7 +218,7 @@
                                         </div>
                                     </div>
                                     {% endfor %}
-
+                                    <hr>
                                     <div class="mb-2">
                                         <h5>No label</h5>
                                         <div>
@@ -411,12 +411,13 @@
                     let newSelected = selected.map(item => { return item.value });
                     document.location.href=`?q1=${ operation }&q2=${ newSelected.join('_') }&page=1`;
                 }
-                let labels = [], operation = '';
+                let labelArr = [], operation = '';
                 function recordLabel(label){
-                    console.log(label);
+                    labelArr.push(label)
+                    console.log('label: ',labelArr);
                 }
                 function recordOperation(opt){
-                    console.log(opt);
+                    console.log('operation: ',opt);
                 }
 
             </script>
