@@ -7,7 +7,9 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 # load_dotenv(BASE_DIR / ".env")
-MONGO_URI = os.getenv("MONGO_URI") # Atlas
+# MONGO_URI = os.getenv("MONGO_URI") # Atlas
+MONGO_URI = "mongodb+srv://kopkap:kopkap123@cluster0.agjmc4n.mongodb.net/?retryWrites=true&w=majority"
+
 # print(MONGO_URI)
 # MONGO_URI = 'mongodb://localhost:27017' # Compass 
 cluster = MongoClient(MONGO_URI, connectTimeoutMS=30000, socketTimeoutMS=None, connect=False, maxPoolsize=1)
