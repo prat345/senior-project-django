@@ -232,9 +232,6 @@ span.header{
   .box-top > h5, h5{
       font-size: 0.8rem;
   }
-  [class|=col]{
-      padding: 5px !important;
-  }
   /* incident */
   .block-text{
       padding: 5px 20px;

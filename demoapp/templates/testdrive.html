@@ -12,7 +12,11 @@
         .dropdown-item.active, .dropdown-item:active {
             background-color: var(--green);
         }
-
+        @media(max-width:576px){
+        [class|=col]{
+            padding: 5px !important;
+        }
+        }
     </style>
 {% endblock %}
 
