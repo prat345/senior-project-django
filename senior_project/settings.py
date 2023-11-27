@@ -36,6 +36,7 @@ DEBUG = bool(os.environ.get("DEBUG"))
 # DEBUG = False
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
+# ALLOWED_HOSTS = []
 
 
 # Application definition
