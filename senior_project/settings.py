@@ -93,15 +93,15 @@ WSGI_APPLICATION = "senior_project.wsgi.application"
 # }
 
 DATABASES = {
-    #    'default': {
-    #        'ENGINE': 'djongo',
-    #        'NAME': 'Information',
-    #        'CLIENT':{
-    #            'host':MONGO_URI,
-    #            'username':ACCOUNT,
-    #            'password':PASSWORD,
-    #        }
-    #    }
+       'default': {
+           'ENGINE': 'djongo',
+           'NAME': 'Information',
+           'CLIENT':{
+               'host':MONGO_URI,
+               'username':ACCOUNT,
+               'password':PASSWORD,
+           }
+       }
    }
 
 
