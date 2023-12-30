@@ -32,8 +32,8 @@ PASSWORD = os.getenv('PASSWORD')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = bool(os.environ.get("DEBUG"))
-DEBUG = True
+DEBUG = bool(os.environ.get("DEBUG"))
+# DEBUG = True
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
 # ALLOWED_HOSTS = []
@@ -93,15 +93,15 @@ WSGI_APPLICATION = "senior_project.wsgi.application"
 # }
 
 DATABASES = {
-       'default': {
-           'ENGINE': 'djongo',
-           'NAME': 'Information',
-           'CLIENT':{
-               'host':MONGO_URI,
-               'username':ACCOUNT,
-               'password':PASSWORD,
-           }
-       }
+    #    'default': {
+    #        'ENGINE': 'djongo',
+    #        'NAME': 'Information',
+    #        'CLIENT':{
+    #            'host':MONGO_URI,
+    #            'username':ACCOUNT,
+    #            'password':PASSWORD,
+    #        }
+    #    }
    }
 
 
@@ -141,7 +141,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [ os.path.join(BASE_DIR,'static'), ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets', 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
