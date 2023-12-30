@@ -18,8 +18,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 # load_dotenv(BASE_DIR / ".env")
 
-# MONGO_URI = os.getenv('MONGO_URI')
-MONGO_URI = "mongodb+srv://kopkap:kopkap123@cluster0.agjmc4n.mongodb.net/?retryWrites=true&w=majority"
+MONGO_URI = os.getenv('MONGO_URI')
+# MONGO_URI = "mongodb+srv://kopkap:kopkap123@cluster0.agjmc4n.mongodb.net/?retryWrites=true&w=majority"
 ACCOUNT = os.getenv('ACCOUNT')
 PASSWORD = os.getenv('PASSWORD')
 # print(MONGO_URI, ACCOUNT, PASSWORD)
@@ -32,8 +32,8 @@ PASSWORD = os.getenv('PASSWORD')
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG"))
-# DEBUG = False
+# DEBUG = bool(os.environ.get("DEBUG"))
+DEBUG = True
 
 ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
 # ALLOWED_HOSTS = []
